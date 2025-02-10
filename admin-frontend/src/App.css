@@ -1,0 +1,31 @@
+.file-icon {
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.file-name {
+  font-size: 16px;
+  word-break: break-word;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .button-group {
+      display: flex;
+      width: 100%;
+      gap: 5px;
+  }
+
+  .btn-sm {
+      width: 100%;
+      text-align: center;
+  }
+
+  .file-name {
+      font-size: 14px;
+  }
+
+  .file-icon {
+      font-size: 20px;
+  }
+}
