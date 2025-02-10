@@ -32,8 +32,8 @@ export default function Login({ setToken }) {
     };
 
     return (
-        <div className="container d-flex align-items-center justify-content-center min-vh-100">
-            <div className="card shadow-lg p-4" style={{ maxWidth: "400px", width: "100%" }}>
+        <div className="container d-flex align-items-center justify-content-center" style={{ height: "calc(100vh - 56px)" }}>
+            <div className="card shadow-lg p-4" style={{ maxWidth: "500px", width: "100%" }}>
                 <h2 className="text-center mb-4">Admin Login</h2>
                 <div className="mb-3">
                     <label className="form-label">Email</label>

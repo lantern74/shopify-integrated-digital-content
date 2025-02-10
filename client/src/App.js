@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar"; 
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import CustomerLogin from "./components/CustomerLogin";
 import CustomerDashboard from "./components/CustomerDashboard";
-import { jwtDecode } from "jwt-decode"; // ✅ Correct import
+import { jwtDecode } from "jwt-decode";
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token") || "");
-    const [role, setRole] = useState(""); // State to store user role
+    const [role, setRole] = useState("");
 
-    // Decode token and determine user role
     useEffect(() => {
         if (token) {
             try {
                 const decoded = jwtDecode(token);
-                setRole(decoded.role || ""); // Ensure role exists
+                setRole(decoded.role || "");
             } catch (error) {
                 console.error("❌ Invalid Token:", error);
                 setToken("");
@@ -26,6 +26,8 @@ function App() {
 
     return (
         <Router>
+            <Navbar token={token} setToken={setToken} role={role} /> 
+
             <Routes>
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<Login setToken={setToken} />} />

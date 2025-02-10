@@ -19,11 +19,31 @@ export default function CustomerLogin({ setToken }) {
     };
 
     return (
-        <div className="container mt-5">
-            <h2>Customer Login</h2>
-            <input type="email" className="form-control" placeholder="Email" onChange={e => setEmail(e.target.value)} />
-            <input type="text" className="form-control mt-2" placeholder="Order ID" onChange={e => setOrderId(e.target.value)} />
-            <button className="btn btn-primary mt-2" onClick={handleLogin}>Login</button>
+        <div className="container d-flex align-items-center justify-content-center" style={{ height: "calc(100vh - 56px)" }}>
+            <div className="card shadow-lg p-4" style={{ maxWidth: "500px", width: "100%" }}>
+                <h2 className="text-center mb-4">Customer Login</h2>
+                <div className="mb-3">
+                    <label className="form-label">Email</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Enter your email"
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="mb-3">
+                    <label className="form-label">Order ID</label>
+                    <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Enter your Order ID"
+                        onChange={(e) => setOrderId(e.target.value)}
+                    />
+                </div>
+                <button className="btn btn-primary w-100" onClick={handleLogin}>
+                    Login
+                </button>
+            </div>
         </div>
     );
 }
