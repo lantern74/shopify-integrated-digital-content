@@ -17,10 +17,16 @@ export default function Login({ setToken }) {
                 throw new Error("Token not received");
             }
 
-            setToken(res.data.token);
+            // Store token in localStorage first
             localStorage.setItem("token", res.data.token);
-            navigate("/admin/dashboard");
+            setToken(res.data.token); // Update state
+
+            // ✅ Wait for token update before navigating
+            setTimeout(() => {
+                navigate("/admin/dashboard");
+            }, 500);
         } catch (error) {
+            console.error("❌ Login Error:", error);
             alert("Login failed! Check console for details.");
         }
     };
