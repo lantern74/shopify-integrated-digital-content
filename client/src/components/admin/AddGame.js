@@ -30,6 +30,10 @@ export default function AddGame({ token }) {
         setGameplayPictures([...e.target.files]); // Store multiple files in an array
     };
 
+    const handleCancel = () => {
+        navigate("/admin/dashboard");
+    }
+
     const handleSubmit = async () => {
         if (!gameDetails.name || !file || !gamePicture) {
             alert("Please fill in all fields and upload files.");
@@ -119,9 +123,13 @@ export default function AddGame({ token }) {
                     </div>
                 )}
 
-                <button className="btn btn-success w-100 mt-3" onClick={handleSubmit} disabled={isUploading}>
-                    {isUploading ? "Uploading..." : "Submit"}
-                </button>
+                
+                <div className="d-flex justify-content-between gap-2">
+                    <button className="btn btn-success w-100" onClick={handleCancel}>Cancel</button>
+                    <button className="btn btn-success w-100" onClick={handleSubmit} disabled={isUploading}>
+                        {isUploading ? "Uploading..." : "Submit"}
+                    </button>
+                </div>
             </div>
         </div>
     );
