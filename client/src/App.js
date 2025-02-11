@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar"; 
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
+import Login from "./components/admin/Login";
+import Dashboard from "./components/admin/Dashboard";
 import CustomerLogin from "./components/CustomerLogin";
 import CustomerDashboard from "./components/CustomerDashboard";
 import { jwtDecode } from "jwt-decode";
+import AddGame from "./components/admin/AddGame";
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -32,6 +33,7 @@ function App() {
                 {/* Admin Routes */}
                 <Route path="/admin/login" element={<Login setToken={setToken} />} />
                 <Route path="/admin/dashboard" element={token && role === "admin" ? <Dashboard token={token} /> : <Login setToken={setToken} />} />
+                <Route path="/admin/add-game" element={token && role === "admin" ? <AddGame token={token} /> : <Dashboard setToken={setToken} />} />
 
                 {/* Customer Routes */}
                 <Route path="/login" element={<CustomerLogin setToken={setToken} />} />

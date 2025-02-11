@@ -7,6 +7,11 @@
   font-size: 16px;
   word-break: break-word;
 }
+.progress-bar {
+  background-color: #28a745; /* Green */
+  height: 10px;
+  font-weight: bold;
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
