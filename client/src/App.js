@@ -7,6 +7,7 @@ import CustomerLogin from "./components/CustomerLogin";
 import CustomerDashboard from "./components/CustomerDashboard";
 import { jwtDecode } from "jwt-decode";
 import AddGame from "./components/admin/AddGame";
+import EditGame from "./components/admin/EditGame";
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token") || "");
@@ -34,6 +35,7 @@ function App() {
                 <Route path="/admin/login" element={<Login setToken={setToken} />} />
                 <Route path="/admin/dashboard" element={token && role === "admin" ? <Dashboard token={token} /> : <Login setToken={setToken} />} />
                 <Route path="/admin/add-game" element={token && role === "admin" ? <AddGame token={token} /> : <Dashboard setToken={setToken} />} />
+                <Route path="/admin/edit-game/:id" element={token && role === "admin" ? <EditGame token={token} /> : <Login setToken={setToken} />} />
 
                 {/* Customer Routes */}
                 <Route path="/login" element={<CustomerLogin setToken={setToken} />} />
