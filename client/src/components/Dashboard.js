@@ -110,6 +110,7 @@ export default function Dashboard({ token }) {
         const docExtensions = ["doc", "docx", "txt", "rtf"];
         const videoExtensions = ["mp4", "mkv", "avi", "mov", "flv", "webm"];
         const audioExtensions = ["mp3", "wav", "aac", "ogg"];
+        const zipExtensions = ["zip", "rar"];
 
         if (imageExtensions.includes(fileExtension)) {
             return <i className="bi bi-file-image text-info file-icon"></i>;
@@ -121,6 +122,8 @@ export default function Dashboard({ token }) {
             return <i className="bi bi-file-play text-warning file-icon"></i>;
         } else if (audioExtensions.includes(fileExtension)) {
             return <i className="bi bi-file-music text-success file-icon"></i>;
+        } else if (zipExtensions.includes(fileExtension)) {
+            return <i className="bi bi-file-zip text-success file-icon"></i>;
         }
         return <i className="bi bi-file-earmark text-secondary file-icon"></i>;
     };
