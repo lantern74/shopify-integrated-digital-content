@@ -1,7 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import '../../App.css'
 
 export default function AddGame({ token }) {
     const navigate = useNavigate();
@@ -14,9 +13,9 @@ export default function AddGame({ token }) {
 
     const [file, setFile] = useState(null);
     const [gamePicture, setGamePicture] = useState(null);
-    const [gameplayPicture, setGameplayPicture] = useState(null);
-    const [uploadProgress, setUploadProgress] = useState(0); // Track upload progress
-    const [isUploading, setIsUploading] = useState(false); // Track loading state
+    const [gameplayPictures, setGameplayPictures] = useState([]); // ✅ Multiple files
+    const [uploadProgress, setUploadProgress] = useState(0);
+    const [isUploading, setIsUploading] = useState(false);
     const fileInputRef = useRef(null);
 
     const handleChange = (e) => {
@@ -25,14 +24,18 @@ export default function AddGame({ token }) {
 
     const handleFileChange = (e) => setFile(e.target.files[0]);
     const handleGamePictureChange = (e) => setGamePicture(e.target.files[0]);
-    const handleGameplayPictureChange = (e) => setGameplayPicture(e.target.files[0]);
+
+    // ✅ Handle multiple gameplay pictures
+    const handleGameplayPicturesChange = (e) => {
+        setGameplayPictures([...e.target.files]); // Store multiple files in an array
+    };
 
     const handleSubmit = async () => {
         if (!gameDetails.name || !file || !gamePicture) {
             alert("Please fill in all fields and upload files.");
             return;
         }
-    
+
         const formData = new FormData();
         formData.append("name", gameDetails.name);
         formData.append("region", gameDetails.region);
@@ -40,31 +43,33 @@ export default function AddGame({ token }) {
         formData.append("description", gameDetails.description);
         formData.append("file", file);
         formData.append("gamePicture", gamePicture);
-        if (gameplayPicture) {
-            formData.append("gameplayPicture", gameplayPicture);
-        }
+
+        // ✅ Append multiple gameplay images
+        gameplayPictures.forEach((picture, index) => {
+            formData.append("gameplayPictures", picture);
+        });
 
         try {
-            setUploadProgress(0); // Reset progress
-            setIsUploading(true); // Start loading
-    
+            setUploadProgress(0);
+            setIsUploading(true);
+
             console.log("📌 Sending Game Add Request...");
             await axios.post("http://localhost:5000/api/games/add", formData, {
                 headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
                 onUploadProgress: (progressEvent) => {
                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
-                    setUploadProgress(percentCompleted); // Update progress bar
+                    setUploadProgress(percentCompleted);
                 }
             });
-    
+
             alert("Game added successfully!");
-            navigate("/admin/dashboard"); // ✅ Redirect to Dashboard after adding
-            window.location.reload(); // ✅ Force refresh the page to fetch new games
+            navigate("/admin/dashboard");
+            window.location.reload();
         } catch (error) {
             console.error("❌ Error Adding Game:", error.response ? error.response.data : error.message);
             alert("Failed to add game. Check console for details.");
         } finally {
-            setIsUploading(false); // Hide progress bar after upload completes
+            setIsUploading(false);
         }
     };
 
@@ -98,8 +103,8 @@ export default function AddGame({ token }) {
                     <input type="file" className="form-control" onChange={handleGamePictureChange} />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Upload Gameplay Picture</label>
-                    <input type="file" className="form-control" onChange={handleGameplayPictureChange} />
+                    <label className="form-label">Upload Gameplay Pictures (Multiple)</label>
+                    <input type="file" className="form-control" multiple onChange={handleGameplayPicturesChange} />
                 </div>
 
                 {/* ✅ Progress Bar */}
