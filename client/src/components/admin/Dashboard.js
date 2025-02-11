@@ -89,7 +89,7 @@ export default function Dashboard({ token }) {
             <input
                 type="text"
                 className="form-control mb-3"
-                placeholder="Search by Name, Region, or Genre..."
+                placeholder="🔍 Search by Game Name, Region, or Genre..."
                 value={searchQuery}
                 onChange={handleSearch}
             />

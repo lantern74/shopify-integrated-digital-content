@@ -99,7 +99,7 @@ export default function AddGame({ token }) {
                     <textarea className="form-control" name="description" rows="3" onChange={handleChange}></textarea>
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Upload Game File</label>
+                    <label className="form-label">Upload Game File (Max 5GB)</label>
                     <input type="file" className="form-control" ref={fileInputRef} onChange={handleFileChange} />
                 </div>
                 <div className="mb-3">
