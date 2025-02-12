@@ -291,47 +291,4 @@ router.delete("/delete-gameplay/:gameId/:fileId", async (req, res) => {
     }
 });
 
-// // 🔍 SEARCH GAMES BY NAME, REGION, OR GENRE
-// router.get("/search", async (req, res) => {
-//     try {
-//         let { query } = req.query; // ✅ Get query parameter from the request URL
-
-//         // ✅ If no query is provided, return all games
-//         if (!query || query.trim() === "") {
-//             console.log("🔍 No search query provided, returning all games.");
-//             return res.json(await Game.find());
-//         }
-
-//         query = query.trim();
-//         console.log(`📌 Searching for games matching: "${query}"`);
-
-//         // ✅ Perform case-insensitive search
-//         const games = await Game.find({
-//             $or: [
-//                 { name: { $regex: query, $options: "i" } }, 
-//                 { region: { $regex: query, $options: "i" } }, 
-//                 { genre: { $regex: query, $options: "i" } }
-//             ]
-//         });
-
-//         if (games.length === 0) {
-//             console.log(`⚠ No games found for search: "${query}"`);
-//         } else {
-//             console.log(`✅ Found ${games.length} games for search: "${query}"`);
-//         }
-
-//         res.json(games);
-        
-//     } catch (error) {
-//         console.error("❌ Search Error:", error);
-//         res.status(500).json({ message: "Internal Server Error - Unable to fetch search results.", error: error.message });
-//     }
-// });
-
-
-
-
-
-
-
 module.exports = router;

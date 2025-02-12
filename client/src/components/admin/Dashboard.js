@@ -101,8 +101,15 @@ export default function Dashboard({ token }) {
                     filteredGames.map((game) => (
                         <div key={game._id} className="col-md-4 col-sm-6">
                             <div className="card shadow-sm mb-3">
-                                <img src={game.gamePictureUrl} className="card-img-top" alt={game.name} style={{ height: "200px", objectFit: "cover" }} />
-                                
+                                <Link to={`/admin/preview/${game._id}`}>
+                                    <img 
+                                        src={game.gamePictureUrl} 
+                                        className="card-img-top" 
+                                        alt={game.name} 
+                                        style={{ height: "200px", objectFit: "cover", cursor: "pointer" }} 
+                                    />
+                                </Link>
+
                                 <div className="card-body">
                                     <h5>{game.name}</h5>
                                     <div><strong>Genre:</strong> {game.genre}</div>

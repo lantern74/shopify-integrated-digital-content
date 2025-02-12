@@ -113,7 +113,7 @@ export default function AddGame({ token }) {
 
                 {/* ✅ Progress Bar */}
                 {isUploading && (
-                    <div className="progress mt-3">
+                    <div className="progress mt-3 mb-3">
                         <div 
                             className="progress-bar progress-bar-striped progress-bar-animated" 
                             role="progressbar" 
