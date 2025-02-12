@@ -17,7 +17,7 @@ router.post("/login", async (req, res) => {
 
         // 🔍 Fetch order directly using Shopify API
         const shopifyResponse = await axios.get(
-            `https://pspvault.com/admin/api/2023-01/orders/${numericOrderId}.json`,
+            `https://z1gpvy-0m.myshopify.com/admin/api/2023-01/orders/${numericOrderId}.json`,
             { headers: { "X-Shopify-Access-Token": process.env.SHOPIFY_ACCESS_TOKEN } }
         );
 
