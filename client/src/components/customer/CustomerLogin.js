@@ -4,7 +4,7 @@ import axios from "axios";
 
 export default function CustomerLogin({ setToken }) {
     const [email, setEmail] = useState("");
-    const [orderId, setOrderId] = useState("");
+    const [orderNumber, setOrderNumber] = useState("");
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
@@ -12,14 +12,14 @@ export default function CustomerLogin({ setToken }) {
     const apiUrl = process.env.REACT_APP_API_URL;
     const handleLogin = async () => {
         setErrorMessage(""); // Clear previous error
-        if (!email.trim() || !orderId.trim()) {
+        if (!email.trim() || !orderNumber.trim()) {
             setErrorMessage("Email and Order ID are required.");
             return;
         }
 
         setLoading(true);
         try {
-            const res = await axios.post(`${apiUrl}/api/customers/login`, { email, orderId });
+            const res = await axios.post(`${apiUrl}/api/customers/login`, { email, orderNumber });
             setToken(res.data.token);
             localStorage.setItem("token", res.data.token);
             navigate("/dashboard");
@@ -47,13 +47,13 @@ export default function CustomerLogin({ setToken }) {
                     />
                 </div>
                 <div className="mb-3">
-                    <label className="form-label">Order ID</label>
+                    <label className="form-label">Order Number</label>
                     <input
                         type="text"
                         className="form-control"
-                        placeholder="Enter your Order ID"
-                        value={orderId}
-                        onChange={(e) => setOrderId(e.target.value)}
+                        placeholder="Enter your Order Number"
+                        value={orderNumber}
+                        onChange={(e) => setOrderNumber(e.target.value)}
                     />
                 </div>
                 <button className="btn btn-primary w-100" onClick={handleLogin} disabled={loading}>

@@ -6,32 +6,34 @@ const router = express.Router();
 
 // Customer Login using Shopify Order ID
 router.post("/login", async (req, res) => {
-    const { email, orderId } = req.body;
+    const { email, orderNumber } = req.body;
 
     try {
-        // Convert orderId to number (Shopify orders are numeric)
-        const numericOrderId = Number(orderId);
-        if (isNaN(numericOrderId)) {
-            return res.status(400).json({ message: "Invalid Order ID format." });
+        // Check if the orderNumber is provided and is a valid number
+        const numericOrderNumber = Number(orderNumber);
+        if (isNaN(numericOrderNumber)) {
+            return res.status(400).json({ message: "Invalid Order Number format." });
         }
 
-        // 🔍 Fetch order directly using Shopify API
+        // 🔍 Fetch orders from Shopify by order_number
         const shopifyResponse = await axios.get(
-            `https://pspvault.com/admin/api/2023-01/orders/${numericOrderId}.json`,
+            `https://pspvault.com/admin/api/2023-01/orders.json?name=${numericOrderNumber}`,  // Search by order_number (name)
             { headers: { "X-Shopify-Access-Token": process.env.SHOPIFY_ACCESS_TOKEN } }
         );
 
-        const order = shopifyResponse.data.order;
-        console.log(order, 'order')
+        const orders = shopifyResponse.data.orders;
+        console.log(orders, 'orders');
 
-        // ✅ Validate email matches order
-        if (!order || order.email !== email) {
+        // ✅ Validate if the order exists and matches the email
+        const order = orders.find(o => o.email === email);
+
+        if (!order) {
             return res.status(401).json({ message: "Order not found or email mismatch" });
         }
 
         // ✅ Generate JWT Token
         const token = jwt.sign(
-            { email, orderId: numericOrderId, role: "customer" },
+            { email, orderNumber: numericOrderNumber, role: "customer" },
             process.env.JWT_SECRET,
             { expiresIn: "3h" }
         );
@@ -43,5 +45,6 @@ router.post("/login", async (req, res) => {
         res.status(500).json({ message: "Error verifying order. Please try again later." });
     }
 });
+
 
 module.exports = router;
