@@ -20,7 +20,7 @@ export default function CustomerDashboard({ token }) {
 
     const fetchGames = async () => {
         try {
-            const res = await axios.get("${apiUrl}/api/games", {
+            const res = await axios.get(`${apiUrl}/api/games`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
