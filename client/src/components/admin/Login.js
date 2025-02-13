@@ -7,9 +7,10 @@ export default function Login({ setToken }) {
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const handleLogin = async () => {
         try {
-            const res = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+            const res = await axios.post(`${apiUrl}/api/auth/login`, { email, password });
 
             console.log("✅ Login Successful! Response:", res.data);
 

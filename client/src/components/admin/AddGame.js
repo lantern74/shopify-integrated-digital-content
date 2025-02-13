@@ -58,7 +58,8 @@ export default function AddGame({ token }) {
             setIsUploading(true);
 
             console.log("📌 Sending Game Add Request...");
-            await axios.post("http://localhost:5000/api/games/add", formData, {
+            const apiUrl = process.env.REACT_APP_API_URL;
+            await axios.post(`${apiUrl}/api/games/add`, formData, {
                 headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
                 onUploadProgress: (progressEvent) => {
                     const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);

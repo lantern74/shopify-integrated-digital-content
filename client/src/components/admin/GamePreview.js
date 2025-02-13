@@ -8,6 +8,7 @@ export default function GamePreview({ token }) {
     const [game, setGame] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     useEffect(() => {
         if (!token) {
             navigate("/admin/dashboard");
@@ -18,7 +19,7 @@ export default function GamePreview({ token }) {
 
     const fetchGameDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/games/${id}`, {
+            const res = await axios.get(`${apiUrl}/api/games/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -26,13 +27,13 @@ export default function GamePreview({ token }) {
             setGame({
                 ...gameData,
                 gamePictureUrl: gameData.gamePicture
-                    ? `http://localhost:5000/api/files/image/${gameData.gamePicture}`
+                    ? `${apiUrl}/api/files/image/${gameData.gamePicture}`
                     : "/placeholder.jpg",
                 gameplayPictureUrls: gameData.gameplayPictures
-                    ? gameData.gameplayPictures.map(picId => `http://localhost:5000/api/files/image/${picId}`)
+                    ? gameData.gameplayPictures.map(picId => `${apiUrl}/api/files/image/${picId}`)
                     : [],
                 fileDownloadUrl: gameData.fileUrl
-                    ? `http://localhost:5000/api/files/download/${gameData.fileUrl}`
+                    ? `${apiUrl}/api/files/download/${gameData.fileUrl}`
                     : "#",
             });
 

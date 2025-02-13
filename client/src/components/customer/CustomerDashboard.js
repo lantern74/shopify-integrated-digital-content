@@ -9,6 +9,7 @@ export default function CustomerDashboard({ token }) {
     const [filteredGames, setFilteredGames] = useState([]); // For filtering in the frontend
     const [searchQuery, setSearchQuery] = useState("");
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     useEffect(() => {
         if (!token) {
             navigate("/");
@@ -19,20 +20,20 @@ export default function CustomerDashboard({ token }) {
 
     const fetchGames = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/games", {
+            const res = await axios.get("${apiUrl}/api/games", {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
             const gamesWithImages = res.data.map((game) => ({
                 ...game,
                 gamePictureUrl: game.gamePicture
-                    ? `http://localhost:5000/api/files/image/${game.gamePicture}`
+                    ? `${apiUrl}/api/files/image/${game.gamePicture}`
                     : "/placeholder.jpg",
                 gameplayPictureUrls: game.gameplayPictures
-                    ? game.gameplayPictures.map(id => `http://localhost:5000/api/files/image/${id}`)
+                    ? game.gameplayPictures.map(id => `${apiUrl}/api/files/image/${id}`)
                     : [],
                 fileDownloadUrl: game.fileUrl
-                    ? `http://localhost:5000/api/files/download/${game.fileUrl}`
+                    ? `${apiUrl}/api/files/download/${game.fileUrl}`
                     : "#",
             }));
 

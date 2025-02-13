@@ -22,6 +22,7 @@ export default function EditGame({ token }) {
     const [existingGameplayPictureUrls, setExistingGameplayPictureUrls] = useState([]);
 
     const fileInputRef = useRef(null);
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
         fetchGameDetails();
@@ -29,7 +30,7 @@ export default function EditGame({ token }) {
 
     const fetchGameDetails = async () => {
         try {
-            const res = await axios.get(`http://localhost:5000/api/games/${id}`, {
+            const res = await axios.get(`${apiUrl}/api/games/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -42,11 +43,11 @@ export default function EditGame({ token }) {
                 description: game.description,
             });
 
-            setExistingFileUrl(game.fileUrl ? `http://localhost:5000/api/files/download/${game.fileUrl}` : "");
-            setExistingGamePictureUrl(game.gamePicture ? `http://localhost:5000/api/files/image/${game.gamePicture}` : "");
+            setExistingFileUrl(game.fileUrl ? `${apiUrl}/api/files/download/${game.fileUrl}` : "");
+            setExistingGamePictureUrl(game.gamePicture ? `${apiUrl}/api/files/image/${game.gamePicture}` : "");
             setExistingGameplayPictureUrls(game.gameplayPictures ? game.gameplayPictures.map(pictureId => ({
                 id: pictureId,
-                url: `http://localhost:5000/api/files/image/${pictureId}`
+                url: `${apiUrl}/api/files/image/${pictureId}`
             })) : []);
         } catch (error) {
             console.error("❌ Error Fetching Game Details:", error);
@@ -73,10 +74,10 @@ export default function EditGame({ token }) {
             let deleteUrl = "";
             if (fileType === "gameplayPictures" && fileId) {
                 // ✅ Delete a single gameplay picture
-                deleteUrl = `http://localhost:5000/api/games/delete-gameplay/${id}/${fileId}`;
+                deleteUrl = `${apiUrl}/api/games/delete-gameplay/${id}/${fileId}`;
             } else {
                 // ✅ Delete file or game picture
-                deleteUrl = `http://localhost:5000/api/games/files/delete/${id}/${fileType}`;
+                deleteUrl = `${apiUrl}/api/games/files/delete/${id}/${fileType}`;
             }
     
             await axios.delete(deleteUrl, {
@@ -97,7 +98,6 @@ export default function EditGame({ token }) {
         }
     };
     
-
     const handleSubmit = async () => {
         if (!gameDetails.name) {
             alert("Please fill in all required fields.");
@@ -116,7 +116,7 @@ export default function EditGame({ token }) {
 
         try {
             console.log("📌 Sending Game Update Request...");
-            await axios.put(`http://localhost:5000/api/games/update/${id}`, formData, {
+            await axios.put(`${apiUrl}/api/games/update/${id}`, formData, {
                 headers: { Authorization: `Bearer ${token}`, "Content-Type": "multipart/form-data" },
             });
 

@@ -9,6 +9,7 @@ export default function CustomerLogin({ setToken }) {
     const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
 
+    const apiUrl = process.env.REACT_APP_API_URL;
     const handleLogin = async () => {
         setErrorMessage(""); // Clear previous error
         if (!email.trim() || !orderId.trim()) {
@@ -18,7 +19,7 @@ export default function CustomerLogin({ setToken }) {
 
         setLoading(true);
         try {
-            const res = await axios.post("http://localhost:5000/api/customers/login", { email, orderId });
+            const res = await axios.post(`${apiUrl}/api/customers/login`, { email, orderId });
             setToken(res.data.token);
             localStorage.setItem("token", res.data.token);
             navigate("/dashboard");

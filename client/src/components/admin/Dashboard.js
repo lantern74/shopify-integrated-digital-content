@@ -19,20 +19,21 @@ export default function Dashboard({ token }) {
 
     const fetchGames = async () => {
         try {
-            const res = await axios.get("http://localhost:5000/api/games", {
+            const apiUrl = process.env.REACT_APP_API_URL;
+            const res = await axios.get(`${apiUrl}/api/games`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
             const gamesWithImages = res.data.map((game) => ({
                 ...game,
                 gamePictureUrl: game.gamePicture
-                    ? `http://localhost:5000/api/files/image/${game.gamePicture}`
+                    ? `${apiUrl}/api/files/image/${game.gamePicture}`
                     : "/placeholder.jpg",
                 gameplayPictureUrls: game.gameplayPictures
-                    ? game.gameplayPictures.map(id => `http://localhost:5000/api/files/image/${id}`)
+                    ? game.gameplayPictures.map(id => `${apiUrl}/api/files/image/${id}`)
                     : [],
                 fileDownloadUrl: game.fileUrl
-                    ? `http://localhost:5000/api/files/download/${game.fileUrl}`
+                    ? `${apiUrl}/api/files/download/${game.fileUrl}`
                     : "#",
             }));
 
@@ -47,7 +48,8 @@ export default function Dashboard({ token }) {
     const handleDelete = async (gameId) => {
         if (!window.confirm("Are you sure you want to delete this game?")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/games/${gameId}`, {
+            const apiUrl = process.env.REACT_APP_API_URL;
+            await axios.delete(`${apiUrl}/api/games/${gameId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             alert("Game deleted successfully!");
