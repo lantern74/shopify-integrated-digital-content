@@ -11,7 +11,10 @@ const conn = mongoose.connection;
 let gridFSBucket;
 
 conn.once("open", () => {
-    gridFSBucket = new GridFSBucket(conn.db, { bucketName: "uploads" });
+    gridFSBucket = new GridFSBucket(conn.db, {
+        bucketName: "uploads",
+        chunkSizeBytes: 10 * 1024 * 1024  // 10MB chunk size
+    });
 });
 
 // ✅ Multer Disk Storage (Temporary Local Storage Before Uploading to GridFS)
@@ -22,7 +25,10 @@ const storage = multer.diskStorage({
     },
 });
 
-const upload = multer({ storage });
+const upload = multer({
+    storage,
+    limits: { fileSize: 5 * 1024 * 1024 * 1024 }  // Set file size limit to 5GB
+});
 
 // ✅ Game Model (Store Only ObjectId of Files)
 const Game = mongoose.model("Game", new mongoose.Schema({
@@ -53,7 +59,7 @@ const uploadFileToGridFS = (filePath, fileName, mimeType) => {
 router.post("/add", upload.fields([
     { name: "file" },
     { name: "gamePicture" },
-    { name: "gameplayPictures", maxCount: 10 } // ✅ Allow up to 10 gameplay pictures
+    { name: "gameplayPictures", maxCount: 30 } // ✅ Allow up to 10 gameplay pictures
 ]), async (req, res) => {
     try {
         if (!req.body.name || !req.files["file"] || !req.files["gamePicture"]) {

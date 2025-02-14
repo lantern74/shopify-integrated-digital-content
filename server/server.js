@@ -7,6 +7,10 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "5GB" }));
 app.use(express.urlencoded({ extended: true, limit: "5GB" }));
+app.use(function(req, res, next) {
+    req.setTimeout(0);  // No timeout for uploads
+    next();
+});
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
