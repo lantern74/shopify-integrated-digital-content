@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import '../../App.css'
 
 export default function Dashboard({ token }) {
     const navigate = useNavigate();
@@ -44,8 +45,27 @@ export default function Dashboard({ token }) {
         }
     };
 
+    const handleDownload = (e, fileUrl) => {
+        e.stopPropagation();
+        e.preventDefault(); 
+    
+        if (!fileUrl || fileUrl === "#") {
+            alert("Download link is missing!");
+            return;
+        }
+    
+        const link = document.createElement("a");
+        link.href = fileUrl;
+        link.setAttribute("download", ""); // Forces download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    
     // ✅ Handle Delete
-    const handleDelete = async (gameId) => {
+    const handleDelete = async (e, gameId) => {
+        e.stopPropagation();
+        e.preventDefault(); 
         if (!window.confirm("Are you sure you want to delete this game?")) return;
         try {
             const apiUrl = process.env.REACT_APP_API_URL;
@@ -81,56 +101,56 @@ export default function Dashboard({ token }) {
     };
 
     return (
-        <div className="container mt-4">
-            <h2 className="text-center">Admin Game Management</h2>
-            <div className="text-end">
-                <Link to="/admin/add-game" className="btn btn-primary mb-3">+ Add Game</Link>
+        <div className="dashboard-container">
+            <div  className="d-flex align-center justify-content-between">
+                <h2 className="title">Admin Game Management</h2>
+                <div className="actions">
+                    <Link to="/admin/add-game" className="game-add-btn">+ Add Game</Link>
+                </div>
             </div>
 
             {/* 🔍 Search Bar */}
             <input
                 type="text"
-                className="form-control mb-3"
+                className="search-bar"
                 placeholder="🔍 Search by Game Name, Region, or Genre..."
                 value={searchQuery}
                 onChange={handleSearch}
             />
 
-            <div className="row mt-4">
+            <div className="game-grid">
                 {filteredGames.length === 0 ? (
-                    <p className="text-center">No games found. Try a different search!</p>
+                    <p className="no-results">No games found. Try a different search!</p>
                 ) : (
                     filteredGames.map((game) => (
-                        <div key={game._id} className="col-md-4 col-sm-6">
-                            <div className="card shadow-sm mb-3">
-                                <Link to={`/admin/preview/${game._id}`}>
-                                    <img 
-                                        src={game.gamePictureUrl} 
-                                        className="card-img-top" 
-                                        alt={game.name} 
-                                        style={{ height: "200px", objectFit: "cover", cursor: "pointer" }} 
-                                    />
-                                </Link>
-
-                                <div className="card-body">
+                        <div key={game._id} className="game-card">
+                            <Link to={`/admin/preview/${game._id}`}>
+                                <img src={game.gamePictureUrl} alt={game.name} className="game-img" />
+                                <div className="game-info">
                                     <h5>{game.name}</h5>
-                                    <div><strong>Genre:</strong> {game.genre}</div>
-                                    <div><strong>Region:</strong> {game.region}</div>
-                                    
-                                    {/* Action Buttons */}
-                                    <div className="mt-3 d-flex justify-content-between">
-                                        <a href={game.fileDownloadUrl} className="btn btn-success btn-sm d-flex align-items-center justify-content-center" download title="Download">
-                                            <i className="bi bi-download"></i> {/* Bootstrap Icon */}
-                                        </a>
-                                        <Link to={`/admin/edit-game/${game._id}`} className="btn btn-warning btn-sm d-flex align-items-center justify-content-center" title="Edit">
-                                            <i className="bi bi-pencil-square"></i>
-                                        </Link>
-                                        <button onClick={() => handleDelete(game._id)} className="btn btn-danger btn-sm d-flex align-items-center justify-content-center" title="Delete">
-                                            <i className="bi bi-trash"></i>
-                                        </button>
+                                    <div>
+                                        <div><strong>Genre:</strong> {game.genre}</div>
+                                        <div><strong>Region:</strong> {game.region}</div>
                                     </div>
                                 </div>
-                            </div>
+
+                                {/* Action Buttons */}
+                                <div className="game-actions">
+                                    <button
+                                        className="btn btn-success btn-sm d-flex align-items-center justify-content-center"
+                                        onClick={(e) => handleDownload(e, game.fileDownloadUrl)} // 🛠️ Pass event to stop propagation
+                                        title="Download"
+                                    >
+                                        <i className="bi bi-download"></i>
+                                    </button>
+                                    <Link to={`/admin/edit-game/${game._id}`} className="btn btn-sm d-flex align-items-center justify-content-center" title="Edit">
+                                        <i className="bi bi-pencil-square"></i>
+                                    </Link>
+                                    <button onClick={(e) => handleDelete(e, game._id)} className="btn btn-sm d-flex align-items-center justify-content-center" title="Delete">
+                                        <i className="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </Link>
                         </div>
                     ))
                 )}

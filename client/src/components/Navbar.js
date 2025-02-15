@@ -1,24 +1,29 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import "../App.css";
 
 export default function Navbar({ token, setToken, role }) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        // Remove token from storage
         localStorage.removeItem("token");
+
+        // Reset authentication state
         setToken("");
-        navigate("/");
+
+        // Redirect to login page
+        navigate("/login");
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light px-4 d-flex justify-content-between">
-            <Link className="navbar-brand" to="/">📚 Digital Content Library</Link>
-
+        <nav className="navbar navbar-expand-lg px-5 py-4 d-flex justify-content-end">
             <div className="ml-auto">
                 {token ? (
-                    <button className="btn btn-danger" onClick={handleLogout}>Logout</button>
+                    // Use a button instead of <Link> to properly handle logout
+                    <button className="signBtn" onClick={handleLogout}>Logout</button>
                 ) : (
-                    <Link className="btn btn-primary" to="/login">Login</Link>
+                    <Link className="signBtn" to="/login">Login</Link>
                 )}
             </div>
         </nav>

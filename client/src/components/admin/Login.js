@@ -1,14 +1,24 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../../App.css"; // Import the CSS file for styling
 
 export default function Login({ setToken }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(""); // State for error messages
     const navigate = useNavigate();
 
     const apiUrl = process.env.REACT_APP_API_URL;
+
     const handleLogin = async () => {
+        setErrorMessage(""); // Clear previous errors
+
+        if (!email.trim() || !password.trim()) {
+            setErrorMessage("Email and Password are required.");
+            return;
+        }
+
         try {
             const res = await axios.post(`${apiUrl}/api/auth/login`, { email, password });
 
@@ -27,34 +37,39 @@ export default function Login({ setToken }) {
                 navigate("/admin/dashboard");
             }, 500);
         } catch (error) {
-            console.error("❌ Login Error:", error);
-            alert("Login failed! Check console for details.");
+            setErrorMessage(
+                error.response?.data?.message || "Login failed! Please check your email or password."
+            );
         }
     };
 
     return (
-        <div className="container d-flex align-items-center justify-content-center" style={{ height: "calc(100vh - 56px)" }}>
-            <div className="card shadow-lg p-4" style={{ maxWidth: "500px", width: "100%" }}>
-                <h2 className="text-center mb-4">Admin Login</h2>
-                <div className="mb-3">
-                    <label className="form-label">Email</label>
+        <div className="login-container">
+            <div className="login-box">
+                <h2>Admin Login</h2>
+
+                {/* Display error message if exists */}
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+
+                <div className="input-group">
+                    <label>Email</label>
                     <input
                         type="email"
-                        className="form-control"
                         placeholder="Enter your email"
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Password</label>
+
+                <div className="input-group">
+                    <label>Password</label>
                     <input
                         type="password"
-                        className="form-control"
                         placeholder="Enter your password"
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
-                <button className="btn btn-primary w-100" onClick={handleLogin}>
+
+                <button className="login-button" onClick={handleLogin}>
                     Login
                 </button>
             </div>

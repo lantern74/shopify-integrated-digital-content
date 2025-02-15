@@ -1,3 +1,528 @@
+.landing {
+  background: radial-gradient(ellipse at bottom, #1b2735 50%, #090a0f 100%);
+  min-height: 100vh;
+  overflow-y: hidden;
+  color: white;
+}
+.signBtn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover effect for login button */
+.signBtn:hover {
+  color: #bbb;
+  cursor: pointer;
+}
+
+
+/* Centered login container */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px)
+}
+
+/* Login box styling */
+.login-box {
+  background-color: #1e1e1e;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+  width: 500px;
+  text-align: center;
+}
+
+/* Heading */
+.login-box h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #ffffff;
+}
+
+/* Input field styling */
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #b0b0b0;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  background-color: #252525;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Button Styling */
+.login-button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  background-color: #333;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.login-button:hover {
+  background-color: #555;
+  transform: scale(1.03);
+}
+
+.login-button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 400px) {
+  .login-box {
+      width: 90%;
+      padding: 20px;
+  }
+}
+
+.dashboard-container {
+  max-width: 1500px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* 🎮 Title */
+.title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+.game-add-btn {
+  background-color: #222;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+}
+.game-add-btn:hover {
+  background-color: #333;
+}
+/* 🔍 Search Bar */
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #333;
+  background-color: #222;
+  color: white;
+}
+
+/* 🕹️ Game Grid (4 cards per row) */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1400px) {
+  .game-grid {
+      grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1024px) {
+  .game-grid {
+      grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .game-grid {
+      grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .game-grid {
+      grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* 🃏 Game Card */
+.game-card {
+  background-color: #1e1e1e;
+  /* padding: 15px; */
+  text-align: center;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease, border 0.5s ease-in-out;
+  position: relative;
+}
+
+/* 🎮 Hover Effect */
+.game-card:hover {
+  transform: scale(1.03);
+}
+
+/* 🎮 Game Image */
+.game-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none !important;
+}
+/* 🎮 Game Info */
+.game-info{
+  color: white;
+  padding: 15px;
+  padding-top: 5px;
+}
+
+.game-info h5 {
+  margin: 10px 0;
+  font-size: 18px;
+}
+
+/* 🎮 Game Actions */
+.game-actions {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  gap: 5px;
+}
+
+.game-actions .btn {
+  padding: 5px 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #1b2735;
+  border: none;
+  color: white;
+  z-index: 999;
+}
+.game-actions .btn:hover {
+  background-color: #333;
+  color: white
+}
+
+/* preview page */
+.preview-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+.back-preview {
+  background-color: #222;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  text-decoration: none;
+}
+.back-preview:hover {
+  background-color: #333;
+}
+.preview-text {
+  font-size: 16px;
+  margin-left: 20px;
+}
+.preview-subtext {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.preview-download-btn {
+  background-color: #090a0f !important;
+  color: white !important;
+}
+
+/* Add Game */
+.dark-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Title */
+.dark-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Form Card */
+.dark-card {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Input Group */
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #b0b0b0;
+}
+
+.input-group input,
+.input-group textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #252525;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+/* Progress Bar */
+.progress-bar {
+  background-color: #333;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 20px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.progress-fill {
+  background-color: #007bff;
+  height: 100%;
+  text-align: center;
+  line-height: 20px;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 2px 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+}
+
+
+/* Buttons */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.submit-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.cancel-btn:hover {
+  background-color: #cc0000;
+}
+
+.submit-btn:hover {
+  background-color: #218838;
+}
+
+/* Edit Game */
+.edit-game-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* 🎮 Title */
+.edit-game-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* 🗂️ Form Card */
+.edit-game-card {
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* 🎯 Input Group */
+.edit-game-input-group {
+  margin-bottom: 15px;
+}
+
+.edit-game-input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #b0b0b0;
+}
+
+.edit-game-input-group input,
+.edit-game-input-group textarea {
+  width: 100%;
+  padding: 10px;
+  background-color: #252525;
+  border: 1px solid #333;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.edit-game-input-group input:focus,
+.edit-game-input-group textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+.edit-game-file-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.edit-game-file-preview {
+  width: 150px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.edit-game-delete-btn {
+  background-color: transparent;
+  border: none;
+  color: red;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.edit-game-delete-btn:hover {
+  color: #ff4d4d;
+}
+
+/* 🎮 Gameplay Images */
+.edit-game-gameplay-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.edit-game-gameplay-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 5px;
+  object-fit: cover;
+  position: relative;
+}
+
+/* ❌ Delete Button */
+.edit-game-delete-icon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-game-delete-icon:hover {
+  background-color: #ff4d4d;
+}
+
+/* 🟢 Buttons */
+.edit-game-button-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-game-cancel-btn {
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.edit-game-submit-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 48%;
+}
+
+.edit-game-cancel-btn:hover {
+  background-color: #cc0000;
+}
+
+.edit-game-submit-btn:hover {
+  background-color: #218838;
+}
+
+
+
+
+
 .file-icon {
   font-size: 24px;
   margin-right: 8px;

@@ -129,54 +129,54 @@ export default function EditGame({ token }) {
     };
 
     return (
-        <div className="container mt-4">
-            <h2 className="text-center">Edit Game</h2>
+        <div className="edit-game-container">
+            <h2 className="edit-game-title">Edit Game</h2>
 
-            <div className="card p-4 shadow-sm">
-                <div className="mb-3">
-                    <label className="form-label">Game Name</label>
-                    <input type="text" className="form-control" name="name" value={gameDetails.name} onChange={handleChange} />
+            <div className="edit-game-card">
+                <div className="edit-game-input-group">
+                    <label>Game Name</label>
+                    <input type="text" name="name" value={gameDetails.name} onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Region</label>
-                    <input type="text" className="form-control" name="region" value={gameDetails.region} onChange={handleChange} />
+                <div className="edit-game-input-group">
+                    <label>Region</label>
+                    <input type="text" name="region" value={gameDetails.region} onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Genre</label>
-                    <input type="text" className="form-control" name="genre" value={gameDetails.genre} onChange={handleChange} />
+                <div className="edit-game-input-group">
+                    <label>Genre</label>
+                    <input type="text" name="genre" value={gameDetails.genre} onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Description</label>
-                    <textarea className="form-control" name="description" rows="3" value={gameDetails.description} onChange={handleChange}></textarea>
+                <div className="edit-game-input-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3" value={gameDetails.description} onChange={handleChange}></textarea>
                 </div>
 
                 {/* Game File Upload */}
-                <div className="mb-3">
-                    <label className="form-label">Game File</label>
+                <div className="edit-game-input-group">
+                    <label>Game File</label>
                     {existingFileUrl && (
                         <div className="d-flex align-items-center">
                             <a href={existingFileUrl} className="me-3" download>📂 Download Current File</a>
                             <span className="text-danger" style={{ cursor: "pointer" }} onClick={() => handleDeleteFile("file")}>❌</span>
                         </div>
                     )}
-                    <input type="file" className="form-control mt-2" onChange={handleFileChange} />
+                    <input type="file" onChange={handleFileChange} />
                 </div>
 
                 {/* Game Picture Upload */}
-                <div className="mb-3">
-                    <label className="form-label">Game Picture</label>
+                <div className="edit-game-input-group">
+                    <label>Game Picture</label>
                     {existingGamePictureUrl && (
                         <div className="position-relative">
                             <img src={existingGamePictureUrl} alt="Game" className="img-thumbnail" style={{ width: "150px", height: "100px" }} />
                             <span className="position-absolute top-0 bg-danger text-white px-2" style={{ cursor: "pointer" }} onClick={() => handleDeleteFile("gamePicture")}>❌</span>
                         </div>
                     )}
-                    <input type="file" className="form-control mt-2" onChange={handleGamePictureChange} />
+                    <input type="file" onChange={handleGamePictureChange} />
                 </div>
 
                 {/* Gameplay Pictures Upload */}
-                <div className="mb-3">
-                    <label className="form-label">Gameplay Pictures</label>
+                <div className="edit-game-input-group">
+                    <label>Gameplay Pictures</label>
                     <div className="d-flex">
                         {existingGameplayPictureUrls.map((pic) => (
                             <div key={pic.id} className="position-relative me-2">
@@ -185,11 +185,11 @@ export default function EditGame({ token }) {
                             </div>
                         ))}
                     </div>
-                    <input type="file" className="form-control mt-2" multiple onChange={handleGameplayPicturesChange} />
+                    <input type="file" multiple onChange={handleGameplayPicturesChange} />
                 </div>
-                <div className="d-flex justify-content-between gap-2">
-                    <button className="btn btn-success w-100" onClick={handleCancel}>Cancel</button>
-                    <button className="btn btn-success w-100" onClick={handleSubmit}>Update Game</button>
+                <div className="edit-game-button-group">
+                    <button className="edit-game-cancel-btn" onClick={handleCancel}>Cancel</button>
+                    <button className="edit-game-submit-btn" onClick={handleSubmit}>Update Game</button>
                 </div>
             </div>
         </div>

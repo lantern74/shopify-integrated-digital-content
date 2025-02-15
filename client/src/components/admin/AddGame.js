@@ -79,55 +79,51 @@ export default function AddGame({ token }) {
     };
 
     return (
-        <div className="container mt-4">
-            <h2 className="text-center">Add New Game</h2>
+        <div className="dark-container">
+            <h2 className="dark-title">Add New Game</h2>
 
-            <div className="card p-4 shadow-sm">
-                <div className="mb-3">
-                    <label className="form-label">Game Name</label>
-                    <input type="text" className="form-control" name="name" onChange={handleChange} />
+            <div className="dark-card">
+                <div className="input-group">
+                    <label>Game Name</label>
+                    <input type="text" name="name" onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Region</label>
-                    <input type="text" className="form-control" name="region" onChange={handleChange} />
+                <div className="input-group">
+                    <label>Region</label>
+                    <input type="text" name="region" onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Genre</label>
-                    <input type="text" className="form-control" name="genre" onChange={handleChange} />
+                <div className="input-group">
+                    <label>Genre</label>
+                    <input type="text" name="genre" onChange={handleChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Description</label>
-                    <textarea className="form-control" name="description" rows="3" onChange={handleChange}></textarea>
+                <div className="input-group">
+                    <label>Description</label>
+                    <textarea name="description" rows="3" onChange={handleChange}></textarea>
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Upload Game File (Max 5GB)</label>
-                    <input type="file" className="form-control" ref={fileInputRef} onChange={handleFileChange} />
+                <div className="input-group">
+                    <label>Upload Game File (Max 5GB)</label>
+                    <input type="file" ref={fileInputRef} onChange={handleFileChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Upload Game Picture</label>
-                    <input type="file" className="form-control" onChange={handleGamePictureChange} />
+                <div className="input-group">
+                    <label>Upload Game Picture</label>
+                    <input type="file" onChange={handleGamePictureChange} />
                 </div>
-                <div className="mb-3">
-                    <label className="form-label">Upload Gameplay Pictures (Multiple)</label>
-                    <input type="file" className="form-control" multiple onChange={handleGameplayPicturesChange} />
+                <div className="input-group">
+                    <label>Upload Gameplay Pictures (Multiple)</label>
+                    <input type="file" multiple onChange={handleGameplayPicturesChange} />
                 </div>
 
                 {/* ✅ Progress Bar */}
                 {isUploading && (
-                    <div className="progress mt-3 mb-3">
-                        <div 
-                            className="progress-bar progress-bar-striped progress-bar-animated" 
-                            role="progressbar" 
-                            style={{ width: `${uploadProgress}%` }}>
+                    <div className="progress-bar">
+                        <div className="progress-fill" style={{ width: `${uploadProgress}%` }}>
                             {uploadProgress}%
                         </div>
                     </div>
                 )}
 
-                
-                <div className="d-flex justify-content-between gap-2">
-                    <button className="btn btn-success w-100" onClick={handleCancel}>Cancel</button>
-                    <button className="btn btn-success w-100" onClick={handleSubmit} disabled={isUploading}>
+                <div className="button-group">
+                    <button className="cancel-btn" onClick={handleCancel}>Cancel</button>
+                    <button className="submit-btn" onClick={handleSubmit} disabled={isUploading}>
                         {isUploading ? "Uploading..." : "Submit"}
                     </button>
                 </div>

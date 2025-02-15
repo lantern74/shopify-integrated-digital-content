@@ -44,6 +44,23 @@ export default function CustomerDashboard({ token }) {
         }
     };
 
+    const handleDownload = (e, fileUrl) => {
+        e.stopPropagation();
+        e.preventDefault(); 
+    
+        if (!fileUrl || fileUrl === "#") {
+            alert("Download link is missing!");
+            return;
+        }
+    
+        const link = document.createElement("a");
+        link.href = fileUrl;
+        link.setAttribute("download", ""); // Forces download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
     // 🔍 Handle Search Input
     const handleSearch = (e) => {
         const query = e.target.value.toLowerCase();
@@ -65,47 +82,45 @@ export default function CustomerDashboard({ token }) {
     };
 
     return (
-        <div className="container mt-4">
-            <h2 className="text-center mb-5">Game Contents</h2>
+        <div className="dashboard-container">
+            <h2 className="text-center title">Game Contents</h2>
 
             {/* 🔍 Search Bar */}
             <input
                 type="text"
-                className="form-control mb-3"
+                className="search-bar"
                 placeholder="🔍 Search by Game Name, Region, or Genre..."
                 value={searchQuery}
                 onChange={handleSearch}
             />
 
-            <div className="row mt-4">
+            <div className="game-grid">
                 {filteredGames.length === 0 ? (
-                    <p className="text-center">No games found. Try a different search!</p>
+                    <p className="no-results">No games found. Try a different search!</p>
                 ) : (
                     filteredGames.map((game) => (
-                        <div key={game._id} className="col-md-4 col-sm-6">
-                            <div className="card shadow-sm mb-3">
-                                <Link to={`/preview/${game._id}`}>
-                                    <img 
-                                        src={game.gamePictureUrl} 
-                                        className="card-img-top" 
-                                        alt={game.name} 
-                                        style={{ height: "200px", objectFit: "cover", cursor: "pointer" }} 
-                                    />
-                                </Link>
-                                
-                                <div className="card-body">
+                        <div key={game._id} className="game-card">
+                            <Link to={`/preview/${game._id}`}>
+                                <img src={game.gamePictureUrl} alt={game.name} className="game-img" />
+                                <div className="game-info">
                                     <h5>{game.name}</h5>
-                                    <div><strong>Genre:</strong> {game.genre}</div>
-                                    <div><strong>Region:</strong> {game.region}</div>
-                                    
-                                    {/* Download Button */}
-                                    <div className="mt-3 d-flex justify-content-center">
-                                        <a href={game.fileDownloadUrl} className="btn btn-success btn-sm d-flex align-items-center justify-content-center gap-2" download title="Download">
-                                            <i className="bi bi-download"></i><span>Download</span>
-                                        </a>
+                                    <div>
+                                        <div><strong>Genre:</strong> {game.genre}</div>
+                                        <div><strong>Region:</strong> {game.region}</div>
                                     </div>
                                 </div>
-                            </div>
+
+                                {/* Action Buttons */}
+                                <div className="game-actions">
+                                    <button
+                                        className="btn btn-success btn-sm d-flex align-items-center justify-content-center"
+                                        onClick={(e) => handleDownload(e, game.fileDownloadUrl)} // 🛠️ Pass event to stop propagation
+                                        title="Download"
+                                    >
+                                        <i className="bi bi-download"></i>
+                                    </button>
+                                </div>
+                            </Link>
                         </div>
                     ))
                 )}
