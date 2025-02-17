@@ -20,7 +20,6 @@ export default function Navbar({ token, setToken, role, selectedCategory, setSel
 
     const handleCategoryClick = (category) => {
         setSelectedCategory(category);
-        navigate("/");
         setIsOpen(false); // ✅ Close menu after clicking a category
     };
 
