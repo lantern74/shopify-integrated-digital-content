@@ -11,11 +11,14 @@ import AddGame from "./components/admin/AddGame";
 import EditGame from "./components/admin/EditGame";
 import GamePreview from "./components/admin/GamePreview";
 import Landing from "./Landing";
-import "./App.css"
+import "./App.css";
 
 function App() {
     const [token, setToken] = useState(localStorage.getItem("token") || "");
     const [role, setRole] = useState("");
+    const [loading, setLoading] = useState(
+        sessionStorage.getItem("hasLoaded") ? false : true
+    );
 
     useEffect(() => {
         if (token) {
@@ -30,27 +33,49 @@ function App() {
         }
     }, [token]);
 
+    // Show loading screen only once when the website initially loads
+    useEffect(() => {
+        if (loading) {
+            setTimeout(() => {
+                setLoading(false);
+                sessionStorage.setItem("hasLoaded", "true"); // Store that the site has loaded
+            }, 5000);
+        }
+    }, [loading]);
+
     return (
         <Router>
-            <div className="landing">
-                <Navbar token={token} setToken={setToken} role={role} /> 
-                <Routes>
-                    {/* Admin Routes */}
-                    <Route path="/admin/login" element={<Login setToken={setToken} />} />
-                    <Route path="/admin/dashboard" element={token && role === "admin" ? <Dashboard token={token} /> : <Login setToken={setToken} />} />
-                    <Route path="/admin/add-game" element={token && role === "admin" ? <AddGame token={token} /> : <Dashboard setToken={setToken} />} />
-                    <Route path="/admin/edit-game/:id" element={token && role === "admin" ? <EditGame token={token} /> : <Dashboard setToken={setToken} />} />
-                    <Route path="/admin/preview/:id" element={token && role === "admin" ? <GamePreview token={token} /> : <Dashboard setToken={setToken} />} />
+            {loading ? (
+                // 🔥 Full-Screen Loading Animation (Only on First Load)
+                <div className="loading-screen">
+                    <h1 className="loading-text">
+                        Loading
+                        <span className="dot1">.</span>
+                        <span className="dot2">.</span>
+                        <span className="dot3">.</span>
+                    </h1>
+                </div>
+            ) : (
+                <div className="landing">
+                    <Navbar token={token} setToken={setToken} role={role} /> 
+                    <Routes>
+                        {/* Admin Routes */}
+                        <Route path="/admin/login" element={<Login setToken={setToken} />} />
+                        <Route path="/admin/dashboard" element={token && role === "admin" ? <Dashboard token={token} /> : <Login setToken={setToken} />} />
+                        <Route path="/admin/add-game" element={token && role === "admin" ? <AddGame token={token} /> : <Dashboard setToken={setToken} />} />
+                        <Route path="/admin/edit-game/:id" element={token && role === "admin" ? <EditGame token={token} /> : <Dashboard setToken={setToken} />} />
+                        <Route path="/admin/preview/:id" element={token && role === "admin" ? <GamePreview token={token} /> : <Dashboard setToken={setToken} />} />
 
-                    {/* Customer Routes */}
-                    <Route path="/login" element={<CustomerLogin setToken={setToken} />} />
-                    <Route path="/dashboard" element={token && role === "customer" ? <CustomerDashboard token={token} /> : <CustomerLogin setToken={setToken} />} />
-                    <Route path="/preview/:id" element={token && role === "customer" ? <CustomerPreview token={token} /> : <CustomerDashboard setToken={setToken} />} />
+                        {/* Customer Routes */}
+                        <Route path="/login" element={<CustomerLogin setToken={setToken} />} />
+                        <Route path="/dashboard" element={token && role === "customer" ? <CustomerDashboard token={token} /> : <CustomerLogin setToken={setToken} />} />
+                        <Route path="/preview/:id" element={token && role === "customer" ? <CustomerPreview token={token} /> : <CustomerDashboard setToken={setToken} />} />
 
-                    {/* Default Route */}
-                    <Route path="/" element={<Landing />} />
-                </Routes>
-            </div>
+                        {/* Default Route */}
+                        <Route path="/" element={<Landing />} />
+                    </Routes>
+                </div>
+            )}
         </Router>
     );
 }

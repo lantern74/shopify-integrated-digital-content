@@ -177,7 +177,7 @@ export default function EditGame({ token }) {
                 {/* Gameplay Pictures Upload */}
                 <div className="edit-game-input-group">
                     <label>Gameplay Pictures</label>
-                    <div className="d-flex">
+                    <div className="editGameGrid">
                         {existingGameplayPictureUrls.map((pic) => (
                             <div key={pic.id} className="position-relative me-2">
                                 <img src={pic.url} alt="Gameplay" className="img-thumbnail" style={{ width: "80px", height: "80px" }} />

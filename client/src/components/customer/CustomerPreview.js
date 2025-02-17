@@ -47,47 +47,56 @@ export default function CustomerPreview({ token }) {
     if (loading) return <p className="text-center mt-5">Loading game details...</p>;
 
     return (
-        <>
         <div className="preview-container">
-            <button className="back-preview" onClick={() => navigate(-1)}><i class="bi bi-caret-left"></i>Back</button>
+            {/* 🔙 Back Button */}
+            <button className="back-preview" onClick={() => navigate(-1)}>
+                <i className="bi bi-caret-left"></i> Back
+            </button>
 
-            <div>
-                <h3 className="text-center mb-3">{game.name}</h3>
+            <div className="preview-content">
+                {/* 🎮 Game Title */}
+                <h2 className="game-title">{game.name}</h2>
 
-                {/* Game Picture */}
-                <div className="text-center">
-                    <img src={game.gamePictureUrl} className="img-fluid rounded" alt={game.name} style={{ width: "100%", objectFit: "cover" }} />
+                {/* 🖼️ Game Cover */}
+                <div className="game-cover">
+                    <img src={game.gamePictureUrl} alt={game.name} />
                 </div>
 
-                <div className="mt-4">
-                    <div className="preview-subtext">Genre</div>
-                    <div className="preview-text">{game.genre}</div>
-                    <div className="preview-subtext">Region</div>
-                    <div className="preview-text">{game.region}</div>
-                    <div className="preview-subtext">Description</div>
-                    <div className="preview-text">{game.description}</div>
+                {/* 🎭 Game Details */}
+                <div className="game-details">
+                    <div className="detail-box">
+                        <div className="detail-label">🎮 Genre:</div>
+                        <div className="detail-value">{game.genre}</div>
+                    </div>
+                    <div className="detail-box">
+                        <div className="detail-label">🌍 Region:</div>
+                        <div className="detail-value">{game.region}</div>
+                    </div>
+                    <div className="detail-box">
+                        <div className="detail-label">📝 Description:</div>
+                        <p className="detail-value">{game.description}</p>
+                    </div>
                 </div>
 
-                {/* Gameplay Pictures */}
+                {/* 📸 Gameplay Screenshots */}
                 {game.gameplayPictureUrls.length > 0 && (
-                    <div className="mt-3">
-                        <div className="preview-subtext">Game Screenshots</div>
-                        <div className="d-flex flex-wrap mt-3">
+                    <div className="screenshots">
+                        <h3 className="screenshot-title">Game Screenshots</h3>
+                        <div className="screenshot-gallery">
                             {game.gameplayPictureUrls.map((url, index) => (
-                                <img key={index} src={url} alt="Gameplay" className="me-2 mb-2 rounded" style={{ width: "120px", height: "120px", objectFit: "cover" }} />
+                                <img key={index} src={url} alt="Gameplay" className="screenshot-img" />
                             ))}
                         </div>
                     </div>
                 )}
 
-                {/* Download Button */}
-                <div className="mt-4 text-center">
-                    <a href={game.fileDownloadUrl} className="btn preview-download-btn btn-lg d-flex align-items-center justify-content-center gap-2" download title="Download">
-                        <i className="bi bi-download"></i><span>Download Game</span>
+                {/* 📥 Download Button */}
+                <div className="download-section">
+                    <a href={game.fileDownloadUrl} className="download-btn" download>
+                        <i className="bi bi-download"></i> Download Game
                     </a>
                 </div>
             </div>
         </div>
-        </>
     );
 }
