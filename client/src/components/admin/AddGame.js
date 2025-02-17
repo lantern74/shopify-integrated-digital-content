@@ -89,7 +89,7 @@ export default function AddGame({ token }) {
                     <label>Category *</label>
                     <div className="custom-select">
                         <select name="category" value={gameDetails.category} onChange={handleChange} required>
-                            <option value="Games">Select Category</option>
+                            <option value="">Select Category</option>
                             <option value="Games">Games</option>
                             <option value="Movies">Movies</option>
                             <option value="Images">Images</option>
