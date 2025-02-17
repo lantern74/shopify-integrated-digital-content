@@ -8,7 +8,8 @@ export default function AddGame({ token }) {
         name: "",
         region: "",
         genre: "",
-        description: ""
+        description: "",
+        category: ""
     });
 
     const [file, setFile] = useState(null);
@@ -35,7 +36,7 @@ export default function AddGame({ token }) {
     }
 
     const handleSubmit = async () => {
-        if (!gameDetails.name || !file || !gamePicture) {
+        if (!gameDetails.name || !gameDetails.category || !file || !gamePicture) {
             alert("Please fill in all fields and upload files.");
             return;
         }
@@ -45,6 +46,7 @@ export default function AddGame({ token }) {
         formData.append("region", gameDetails.region);
         formData.append("genre", gameDetails.genre);
         formData.append("description", gameDetails.description);
+        formData.append("category", gameDetails.category);
         formData.append("file", file);
         formData.append("gamePicture", gamePicture);
 
@@ -80,11 +82,22 @@ export default function AddGame({ token }) {
 
     return (
         <div className="dark-container">
-            <h2 className="dark-title">Add New Game</h2>
+            <h2 className="dark-title">Add New Content</h2>
 
             <div className="dark-card">
                 <div className="input-group">
-                    <label>Game Name</label>
+                    <label>Category *</label>
+                    <div className="custom-select">
+                        <select name="category" value={gameDetails.category} onChange={handleChange} required>
+                            <option value="Games">Games</option>
+                            <option value="Movies">Movies</option>
+                            <option value="Images">Images</option>
+                            <option value="Documents">Documents</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="input-group">
+                    <label>Name *</label>
                     <input type="text" name="name" onChange={handleChange} />
                 </div>
                 <div className="input-group">
@@ -100,15 +113,15 @@ export default function AddGame({ token }) {
                     <textarea name="description" rows="3" onChange={handleChange}></textarea>
                 </div>
                 <div className="input-group">
-                    <label>Upload Game File (Max 5GB)</label>
+                    <label>Upload File * (Max 5GB)</label>
                     <input type="file" ref={fileInputRef} onChange={handleFileChange} />
                 </div>
                 <div className="input-group">
-                    <label>Upload Game Picture</label>
+                    <label>Upload Initial Picture *</label>
                     <input type="file" onChange={handleGamePictureChange} />
                 </div>
                 <div className="input-group">
-                    <label>Upload Gameplay Pictures (Multiple)</label>
+                    <label>Upload Play Pictures (Multiple)</label>
                     <input type="file" multiple onChange={handleGameplayPicturesChange} />
                 </div>
 

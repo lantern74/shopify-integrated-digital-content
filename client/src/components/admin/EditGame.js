@@ -11,6 +11,7 @@ export default function EditGame({ token }) {
         region: "",
         genre: "",
         description: "",
+        category: "",
     });
 
     const [file, setFile] = useState(null);
@@ -20,8 +21,6 @@ export default function EditGame({ token }) {
     const [existingFileUrl, setExistingFileUrl] = useState("");
     const [existingGamePictureUrl, setExistingGamePictureUrl] = useState("");
     const [existingGameplayPictureUrls, setExistingGameplayPictureUrls] = useState([]);
-
-    const fileInputRef = useRef(null);
     const apiUrl = process.env.REACT_APP_API_URL;
 
     useEffect(() => {
@@ -41,6 +40,7 @@ export default function EditGame({ token }) {
                 region: game.region,
                 genre: game.genre,
                 description: game.description,
+                category: game.category,
             });
 
             setExistingFileUrl(game.fileUrl ? `${apiUrl}/api/files/download/${game.fileUrl}` : "");
@@ -109,6 +109,7 @@ export default function EditGame({ token }) {
         formData.append("region", gameDetails.region);
         formData.append("genre", gameDetails.genre);
         formData.append("description", gameDetails.description);
+        formData.append("category", gameDetails.category);
 
         if (file) formData.append("file", file);
         if (gamePicture) formData.append("gamePicture", gamePicture);
@@ -130,11 +131,22 @@ export default function EditGame({ token }) {
 
     return (
         <div className="edit-game-container">
-            <h2 className="edit-game-title">Edit Game</h2>
+            <h2 className="edit-game-title">Edit Content</h2>
 
             <div className="edit-game-card">
                 <div className="edit-game-input-group">
-                    <label>Game Name</label>
+                    <label>Category *</label>
+                    <div className="custom-select">
+                        <select name="category" value={gameDetails.category} onChange={handleChange} required>
+                            <option value="Games">Games</option>
+                            <option value="Movies">Movies</option>
+                            <option value="Images">Images</option>
+                            <option value="Documents">Documents</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="edit-game-input-group">
+                    <label>Name *</label>
                     <input type="text" name="name" value={gameDetails.name} onChange={handleChange} />
                 </div>
                 <div className="edit-game-input-group">
@@ -152,9 +164,9 @@ export default function EditGame({ token }) {
 
                 {/* Game File Upload */}
                 <div className="edit-game-input-group">
-                    <label>Game File</label>
+                    <label>File * (Max 5GB)</label>
                     {existingFileUrl && (
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center" style={{marginBottom: '5px'}}>
                             <a href={existingFileUrl} className="me-3" download>📂 Download Current File</a>
                             <span className="text-danger" style={{ cursor: "pointer" }} onClick={() => handleDeleteFile("file")}>❌</span>
                         </div>
@@ -164,9 +176,9 @@ export default function EditGame({ token }) {
 
                 {/* Game Picture Upload */}
                 <div className="edit-game-input-group">
-                    <label>Game Picture</label>
+                    <label>Initial Picture *</label>
                     {existingGamePictureUrl && (
-                        <div className="position-relative">
+                        <div className="position-relative" style={{marginBottom: '5px'}}>
                             <img src={existingGamePictureUrl} alt="Game" className="img-thumbnail" style={{ width: "150px", height: "100px" }} />
                             <span className="position-absolute top-0 bg-danger text-white px-2" style={{ cursor: "pointer" }} onClick={() => handleDeleteFile("gamePicture")}>❌</span>
                         </div>
@@ -176,10 +188,10 @@ export default function EditGame({ token }) {
 
                 {/* Gameplay Pictures Upload */}
                 <div className="edit-game-input-group">
-                    <label>Gameplay Pictures</label>
+                    <label>Play Pictures (Multiple)</label>
                     <div className="editGameGrid">
                         {existingGameplayPictureUrls.map((pic) => (
-                            <div key={pic.id} className="position-relative me-2">
+                            <div key={pic.id} className="position-relative me-2" style={{marginBottom: '5px'}}>
                                 <img src={pic.url} alt="Gameplay" className="img-thumbnail" style={{ width: "80px", height: "80px" }} />
                                 <span className="position-absolute top-0 end-0 bg-danger text-white px-2" style={{ cursor: "pointer" }} onClick={() => handleDeleteFile("gameplayPictures", pic.id)}>❌</span>
                             </div>
@@ -189,7 +201,7 @@ export default function EditGame({ token }) {
                 </div>
                 <div className="edit-game-button-group">
                     <button className="edit-game-cancel-btn" onClick={handleCancel}>Cancel</button>
-                    <button className="edit-game-submit-btn" onClick={handleSubmit}>Update Game</button>
+                    <button className="edit-game-submit-btn" onClick={handleSubmit}>Update</button>
                 </div>
             </div>
         </div>

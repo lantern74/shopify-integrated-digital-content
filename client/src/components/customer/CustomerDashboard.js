@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function CustomerDashboard({ token }) {
+export default function CustomerDashboard({ token, selectedCategory }) {
     const navigate = useNavigate();
     const [games, setGames] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]); // For filtering in the frontend
@@ -42,6 +42,28 @@ export default function CustomerDashboard({ token }) {
         } catch (error) {
             console.error("🔴 Error Fetching Games:", error);
         }
+    };
+
+    useEffect(() => {
+        filterGames();
+    }, [selectedCategory, searchQuery, games]);
+
+    const filterGames = () => {
+        let filtered = games;
+
+        if (selectedCategory !== "All") {
+            filtered = filtered.filter(game => game.category === selectedCategory);
+        }
+
+        if (searchQuery.trim()) {
+            filtered = filtered.filter(game =>
+                game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                game.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                game.genre.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        setFilteredGames(filtered);
     };
 
     const handleDownload = (e, fileUrl) => {
@@ -83,20 +105,20 @@ export default function CustomerDashboard({ token }) {
 
     return (
         <div className="dashboard-container">
-            <h2 className="text-center title">Game Contents</h2>
+            <h2 className="text-center title">Digital Content Libraries</h2>
 
             {/* 🔍 Search Bar */}
             <input
                 type="text"
                 className="search-bar"
-                placeholder="🔍 Search by Game Name, Region, or Genre..."
+                placeholder={`🔍 Search by Name, Region, or Genre in ${selectedCategory} Category`}
                 value={searchQuery}
                 onChange={handleSearch}
             />
 
             <div className="game-grid">
                 {filteredGames.length === 0 ? (
-                    <p className="no-results">No games found. Try a different search!</p>
+                    <p className="no-results">No content found. Try a different search!</p>
                 ) : (
                     filteredGames.map((game) => (
                         <div key={game._id} className="game-card">

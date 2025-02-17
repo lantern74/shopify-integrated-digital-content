@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function Landing() {
+export default function Landing({selectedCategory}) {
     const [games, setGames] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
@@ -36,6 +36,28 @@ export default function Landing() {
         }
     };
 
+    useEffect(() => {
+        filterGames();
+    }, [selectedCategory, searchQuery, games]);
+
+    const filterGames = () => {
+        let filtered = games;
+
+        if (selectedCategory !== "All") {
+            filtered = filtered.filter(game => game.category === selectedCategory);
+        }
+
+        if (searchQuery.trim()) {
+            filtered = filtered.filter(game =>
+                game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                game.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                game.genre.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        setFilteredGames(filtered);
+    };
+
     // 🔍 Handle Search Input
     const handleSearch = (e) => {
         const query = e.target.value.toLowerCase();
@@ -58,7 +80,7 @@ export default function Landing() {
 
     return (
         <div className="dashboard-container">
-            <h2 className="text-center title">Game Contents</h2>
+            <h2 className="text-center title">Welcome To Visit Our Digital Content Libraries</h2>
 
             {/* 🔍 Search Bar */}
             <input

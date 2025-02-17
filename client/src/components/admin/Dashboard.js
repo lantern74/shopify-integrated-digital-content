@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import '../../App.css'
 
-export default function Dashboard({ token }) {
+export default function Dashboard({ token, selectedCategory }) {
     const navigate = useNavigate();
     const [games, setGames] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]); // For filtering in the frontend
@@ -45,6 +45,29 @@ export default function Dashboard({ token }) {
         }
     };
 
+    useEffect(() => {
+        filterGames();
+    }, [selectedCategory, searchQuery, games]);
+
+    const filterGames = () => {
+        let filtered = games;
+
+        if (selectedCategory !== "All") {
+            filtered = filtered.filter(game => game.category === selectedCategory);
+        }
+
+        if (searchQuery.trim()) {
+            filtered = filtered.filter(game =>
+                game.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                game.region.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                game.genre.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        setFilteredGames(filtered);
+    };
+
+
     const handleDownload = (e, fileUrl) => {
         e.stopPropagation();
         e.preventDefault(); 
@@ -66,17 +89,17 @@ export default function Dashboard({ token }) {
     const handleDelete = async (e, gameId) => {
         e.stopPropagation();
         e.preventDefault(); 
-        if (!window.confirm("Are you sure you want to delete this game?")) return;
+        if (!window.confirm("Are you sure you want to delete this content?")) return;
         try {
             const apiUrl = process.env.REACT_APP_API_URL;
             await axios.delete(`${apiUrl}/api/games/${gameId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            alert("Game deleted successfully!");
+            alert("Content deleted successfully!");
             fetchGames(); // Refresh list
         } catch (error) {
             console.error("❌ Delete Error:", error);
-            alert("Failed to delete game.");
+            alert("Failed to delete content.");
         }
     };
 
@@ -103,9 +126,9 @@ export default function Dashboard({ token }) {
     return (
         <div className="dashboard-container">
             <div  className="d-flex align-center justify-content-between">
-                <h2 className="title">Admin Game Management</h2>
+                <h2 className="title">Admin Content Management</h2>
                 <div className="actions">
-                    <Link to="/admin/add-game" className="game-add-btn">+ Add Game</Link>
+                    <Link to="/admin/add-game" className="game-add-btn">+ Add</Link>
                 </div>
             </div>
 
@@ -113,14 +136,14 @@ export default function Dashboard({ token }) {
             <input
                 type="text"
                 className="search-bar"
-                placeholder="🔍 Search by Game Name, Region, or Genre..."
+                placeholder={`🔍 Search by Name, Region, or Genre in ${selectedCategory} Category`}
                 value={searchQuery}
                 onChange={handleSearch}
             />
 
             <div className="game-grid">
                 {filteredGames.length === 0 ? (
-                    <p className="no-results">No games found. Try a different search!</p>
+                    <p className="no-results">No found. Try a different search!</p>
                 ) : (
                     filteredGames.map((game) => (
                         <div key={game._id} className="game-card">

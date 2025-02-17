@@ -65,15 +65,30 @@ export default function GamePreview({ token }) {
                 {/* 🎭 Game Details */}
                 <div className="game-details">
                     <div className="detail-box">
-                        <div className="detail-label">🎮 Genre:</div>
+                        <div className="detail-label">
+                            <i className="bi bi-controller" style={{fontSize:'18px'}}></i> Category
+                        </div>
+                        <div className="detail-value">{game.category}</div>
+                    </div>
+                    
+                    <div className="detail-box">
+                        <div className="detail-label">
+                            <i className="bi bi-tags" style={{fontSize:'18px'}}></i> Genre
+                        </div>
                         <div className="detail-value">{game.genre}</div>
                     </div>
+                    
                     <div className="detail-box">
-                        <div className="detail-label">🌍 Region:</div>
+                        <div className="detail-label">
+                            <i className="bi bi-globe" style={{fontSize:'18px'}}></i> Region
+                        </div>
                         <div className="detail-value">{game.region}</div>
                     </div>
+                    
                     <div className="detail-box">
-                        <div className="detail-label">📝 Description:</div>
+                        <div className="detail-label">
+                            <i className="bi bi-file-text" style={{fontSize:'18px'}}></i> Description
+                        </div>
                         <p className="detail-value">{game.description}</p>
                     </div>
                 </div>
@@ -81,7 +96,7 @@ export default function GamePreview({ token }) {
                 {/* 📸 Gameplay Screenshots */}
                 {game.gameplayPictureUrls.length > 0 && (
                     <div className="screenshots">
-                        <h3 className="screenshot-title">Game Screenshots</h3>
+                        <h3 className="screenshot-title">Screenshots</h3>
                         <div className="screenshot-gallery">
                             {game.gameplayPictureUrls.map((url, index) => (
                                 <img key={index} src={url} alt="Gameplay" className="screenshot-img" />
@@ -93,7 +108,7 @@ export default function GamePreview({ token }) {
                 {/* 📥 Download Button */}
                 <div className="download-section">
                     <a href={game.fileDownloadUrl} className="download-btn" download>
-                        <i className="bi bi-download"></i> Download Game
+                        <i className="bi bi-download"></i> Download
                     </a>
                 </div>
             </div>

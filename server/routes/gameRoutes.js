@@ -36,6 +36,7 @@ const Game = mongoose.model("Game", new mongoose.Schema({
     region: String,
     genre: String,
     description: String,
+    category: { type: String, required: true },
     fileUrl: mongoose.Schema.Types.ObjectId,
     gamePicture: mongoose.Schema.Types.ObjectId,
     gameplayPictures: [mongoose.Schema.Types.ObjectId], // ✅ Store multiple gameplay pictures
@@ -62,7 +63,7 @@ router.post("/add", upload.fields([
     { name: "gameplayPictures", maxCount: 30 } // ✅ Allow up to 10 gameplay pictures
 ]), async (req, res) => {
     try {
-        if (!req.body.name || !req.files["file"] || !req.files["gamePicture"]) {
+        if (!req.body.name || !req.files["file"] || !req.files["gamePicture"] || !req.body.category) {
             return res.status(400).json({ message: "Missing required fields" });
         }
 
@@ -85,6 +86,7 @@ router.post("/add", upload.fields([
             region: req.body.region,
             genre: req.body.genre,
             description: req.body.description,
+            category: req.body.category,
             fileUrl: fileId,
             gamePicture: gamePictureId,
             gameplayPictures: gameplayPictureIds, // ✅ Store array of ObjectIds
@@ -216,6 +218,7 @@ router.put("/update/:id", upload.fields([{ name: "file" }, { name: "gamePicture"
         game.region = req.body.region || game.region;
         game.genre = req.body.genre || game.genre;
         game.description = req.body.description || game.description;
+        game.category = req.body.category || game.category;
 
         await game.save();
 
