@@ -36,11 +36,11 @@ export default function Navbar({ token, setToken, role, selectedCategory, setSel
 
                 {!isMobile && (
                     <div className="category-buttons">
-                        <button className={`signBtn ${selectedCategory === "All" ? "active" : ""}`} onClick={() => handleCategoryClick("All")}>All</button>
-                        <button className={`signBtn ${selectedCategory === "Games" ? "active" : ""}`} onClick={() => handleCategoryClick("Games")}>Games</button>
-                        <button className={`signBtn ${selectedCategory === "Movies" ? "active" : ""}`} onClick={() => handleCategoryClick("Movies")}>Movies</button>
-                        <button className={`signBtn ${selectedCategory === "Images" ? "active" : ""}`} onClick={() => handleCategoryClick("Images")}>Images</button>
-                        <button className={`signBtn ${selectedCategory === "Documents" ? "active" : ""}`} onClick={() => handleCategoryClick("Documents")}>Documents</button>
+                        <button className={`signBtn ${selectedCategory === "All" ? "active" : ""}`} onClick={() => handleCategoryClick("All")}>ALL</button>
+                        <button className={`signBtn ${selectedCategory === "GAMES" ? "active" : ""}`} onClick={() => handleCategoryClick("GAMES")}>GAMES</button>
+                        <button className={`signBtn ${selectedCategory === "MOVIES" ? "active" : ""}`} onClick={() => handleCategoryClick("MOVIES")}>MOVIES</button>
+                        <button className={`signBtn ${selectedCategory === "EBOOTS" ? "active" : ""}`} onClick={() => handleCategoryClick("EBOOTS")}>EBOOTS</button>
+                        <button className={`signBtn ${selectedCategory === "MISC" ? "active" : ""}`} onClick={() => handleCategoryClick("MISC")}>MISC</button>
                     </div>
                 )}
 

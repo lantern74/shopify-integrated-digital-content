@@ -90,10 +90,10 @@ export default function AddGame({ token }) {
                     <div className="custom-select">
                         <select name="category" value={gameDetails.category} onChange={handleChange} required>
                             <option value="">Select Category</option>
-                            <option value="Games">Games</option>
-                            <option value="Movies">Movies</option>
-                            <option value="Images">Images</option>
-                            <option value="Documents">Documents</option>
+                            <option value="GAMES">GAMES</option>
+                            <option value="MOVIES">MOVIES</option>
+                            <option value="EBOOTS">EBOOTS</option>
+                            <option value="MISC">MISC</option>
                         </select>
                     </div>
                 </div>

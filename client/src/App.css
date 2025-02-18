@@ -96,7 +96,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 100px)
+  height: calc(100vh - 120px)
 }
 
 /* Login box styling */
@@ -107,6 +107,7 @@
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
   width: 500px;
   text-align: center;
+  margin-top: -150px;
 }
 
 /* Heading */

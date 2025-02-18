@@ -130,11 +130,11 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
              {/* ✅ Show category buttons below the search bar in mobile view */}
              {isMobile && (
                 <div className="category-buttons">
-                    <button className={`categoryBtn ${selectedCategory === "All" ? "active" : ""}`} onClick={() => handleCategoryClick("All")}>All</button>
-                    <button className={`categoryBtn ${selectedCategory === "Games" ? "active" : ""}`} onClick={() => handleCategoryClick("Games")}>Games</button>
-                    <button className={`categoryBtn ${selectedCategory === "Movies" ? "active" : ""}`} onClick={() => handleCategoryClick("Movies")}>Movies</button>
-                    <button className={`categoryBtn ${selectedCategory === "Images" ? "active" : ""}`} onClick={() => handleCategoryClick("Images")}>Images</button>
-                    <button className={`categoryBtn ${selectedCategory === "Documents" ? "active" : ""}`} onClick={() => handleCategoryClick("Documents")}>Documents</button>
+                    <button className={`categoryBtn ${selectedCategory === "All" ? "active" : ""}`} onClick={() => handleCategoryClick("All")}>ALL</button>
+                    <button className={`categoryBtn ${selectedCategory === "GAMES" ? "active" : ""}`} onClick={() => handleCategoryClick("GAMES")}>GAMES</button>
+                    <button className={`categoryBtn ${selectedCategory === "MOVIES" ? "active" : ""}`} onClick={() => handleCategoryClick("MOVIES")}>MOVIES</button>
+                    <button className={`categoryBtn ${selectedCategory === "EBOOTS" ? "active" : ""}`} onClick={() => handleCategoryClick("EBOOTS")}>EBOOTS</button>
+                    <button className={`categoryBtn ${selectedCategory === "MISC" ? "active" : ""}`} onClick={() => handleCategoryClick("MISC")}>MISC</button>
                 </div>
             )}
 
