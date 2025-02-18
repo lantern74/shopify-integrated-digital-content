@@ -89,104 +89,6 @@
   align-items: center;
   z-index: 999;
 }
-@media screen and (max-width: 768px) {
-  .navClass {
-    padding: 20px !important;
-  }
-  .logo {
-    width: 100px;
-  }
-
-  .hamburger {
-      display: block; /* Show on mobile */
-      margin-left: -20px;
-  }
-
-  .nav-links {
-      display: none;
-      flex-direction: column;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 50%;
-      min-height: 100vh;
-      background-color: #222;
-      text-align: center;
-      padding: 20px;
-      justify-content: start;
-      align-items: start;
-  }
-
-  .nav-links.show {
-      display: flex;
-  }
-
-  .signBtn {
-      display: block;
-      padding: 10px 0;
-      font-size: 16px;
-  }
-
-  .auth-btn {
-      width: 100%;
-      text-align: center;
-  }
-  .dashboard-container {
-    max-width: 100vw !important;
-    padding: 10px 30px !important;
-    margin-bottom: 80px !important;
-  }
-  .game-grid {
-    gap: 20px !important;
-  }
-
-  .game-info {
-    font-size: 12px;
-    padding: 0 10px 10px 10px !important;
-  }
-  .game-info h5 {
-    font-size: 14px !important;
-  }
-  .search-bar {
-    font-size: 12px !important;
-  }
-
-  .category-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-  .categoryBtn {
-    background-color: transparent;
-    border: none;
-    color: white;
-    font-size: 14px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  .categoryBtn.active {
-    border-bottom: 2px solid white;
-  }
-  .close-btn {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-
-  .close-btn:hover {
-    color: red; /* Highlight effect */
-  }
-}
-
-
-
-
 
 
 /* Centered login container */
@@ -285,7 +187,6 @@
 .title {
   text-align: center;
   font-size: 28px;
-  margin-bottom: 20px;
 }
 .game-add-btn {
   background-color: #222;
@@ -938,7 +839,109 @@ a {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* @keyframes fadeOut {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(-10px); }
-} */
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .navClass {
+    padding: 20px !important;
+  }
+  .logo {
+    width: 100px;
+  }
+
+  .hamburger {
+      display: block; /* Show on mobile */
+      margin-left: -20px;
+  }
+
+  .nav-links {
+      display: none;
+      flex-direction: column;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 50%;
+      min-height: 100vh;
+      background-color: #222;
+      text-align: center;
+      padding: 20px;
+      justify-content: start;
+      align-items: start;
+  }
+
+  .nav-links.show {
+      display: flex;
+  }
+
+  .signBtn {
+      display: block;
+      padding: 10px 0;
+      font-size: 16px;
+  }
+
+  .auth-btn {
+      width: 100%;
+      text-align: center;
+  }
+  .dashboard-container {
+    max-width: 100vw !important;
+    padding: 10px 30px !important;
+    margin-bottom: 80px !important;
+  }
+  .game-grid {
+    gap: 20px !important;
+  }
+
+  .game-info {
+    font-size: 12px;
+    padding: 0 10px 10px 10px !important;
+  }
+  .game-info h5 {
+    font-size: 14px !important;
+  }
+  .search-bar {
+    font-size: 12px !important;
+  }
+
+  .category-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .categoryBtn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .categoryBtn.active {
+    border-bottom: 2px solid white;
+  }
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .close-btn:hover {
+    color: red; /* Highlight effect */
+  }
+  .admin-header {
+    display: block !important;
+    margin-bottom: 20px !important;
+  }
+}

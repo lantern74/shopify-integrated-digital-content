@@ -3,11 +3,19 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-export default function CustomerDashboard({ token, selectedCategory }) {
+export default function CustomerDashboard({ token, selectedCategory, setSelectedCategory }) {
     const navigate = useNavigate();
     const [games, setGames] = useState([]);
     const [filteredGames, setFilteredGames] = useState([]); // For filtering in the frontend
     const [searchQuery, setSearchQuery] = useState("");
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    // ✅ Update `isMobile` on window resize
+    useEffect(() => {
+        const handleResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const apiUrl = process.env.REACT_APP_API_URL;
     useEffect(() => {
@@ -102,6 +110,9 @@ export default function CustomerDashboard({ token, selectedCategory }) {
 
         setFilteredGames(filtered);
     };
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category);
+    };
 
     return (
         <div className="dashboard-container">
@@ -115,6 +126,17 @@ export default function CustomerDashboard({ token, selectedCategory }) {
                 value={searchQuery}
                 onChange={handleSearch}
             />
+
+             {/* ✅ Show category buttons below the search bar in mobile view */}
+             {isMobile && (
+                <div className="category-buttons">
+                    <button className={`categoryBtn ${selectedCategory === "All" ? "active" : ""}`} onClick={() => handleCategoryClick("All")}>All</button>
+                    <button className={`categoryBtn ${selectedCategory === "Games" ? "active" : ""}`} onClick={() => handleCategoryClick("Games")}>Games</button>
+                    <button className={`categoryBtn ${selectedCategory === "Movies" ? "active" : ""}`} onClick={() => handleCategoryClick("Movies")}>Movies</button>
+                    <button className={`categoryBtn ${selectedCategory === "Images" ? "active" : ""}`} onClick={() => handleCategoryClick("Images")}>Images</button>
+                    <button className={`categoryBtn ${selectedCategory === "Documents" ? "active" : ""}`} onClick={() => handleCategoryClick("Documents")}>Documents</button>
+                </div>
+            )}
 
             <div className="game-grid">
                 {filteredGames.length === 0 ? (
