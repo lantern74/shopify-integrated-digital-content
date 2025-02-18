@@ -186,7 +186,7 @@ function App() {
                         <Route path="/preview/:id" element={token && role === "customer" ? <CustomerPreview token={token} /> : <CustomerDashboard setToken={setToken} selectedCategory={selectedCategory}/>} />
 
                         {/* Default Route */}
-                        <Route path="/" element={<Landing selectedCategory={selectedCategory}/>} />
+                        <Route path="/" element={<Landing selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />} />
                     </Routes>
                     <Footer />
                 </div>

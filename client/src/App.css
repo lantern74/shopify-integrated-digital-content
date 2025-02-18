@@ -1,4 +1,15 @@
 /* 🔥 Full-Screen Loading Screen */
+.navClass {
+  padding: 20px 50px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.logo {
+  width: 200px;
+}
+
 .loading-screen {
   position: fixed;
   top: 0;
@@ -79,6 +90,13 @@
   z-index: 999;
 }
 @media screen and (max-width: 768px) {
+  .navClass {
+    padding: 20px !important;
+  }
+  .logo {
+    width: 100px;
+  }
+
   .hamburger {
       display: block; /* Show on mobile */
       margin-left: -20px;
@@ -134,7 +152,21 @@
   }
 
   .category-buttons {
-    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .categoryBtn {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  .categoryBtn.active {
+    border-bottom: 2px solid white;
   }
   .close-btn {
     position: absolute;
@@ -884,3 +916,29 @@ a {
   margin-bottom: 0;
   font-size: 14px;
 }
+
+/* ❌ Error Message */
+.error-message {
+  background-color: #f8d7da;
+  color: #58151c;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin:  0 auto 20px auto;
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 0.3s ease-in-out, fadeOut 0.3s ease-in-out 3s forwards;
+}
+
+/* 🎬 Fade In & Out Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* @keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+} */
