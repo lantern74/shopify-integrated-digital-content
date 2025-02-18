@@ -20,9 +20,8 @@ router.post("/login", async (req, res) => {
     }
 
     console.log("✅ Password Matched. Generating Token...");
-    const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "3h" });
+    const token = jwt.sign({ email, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "1h" });
     res.json({ token });
 });
-
 
 module.exports = router;

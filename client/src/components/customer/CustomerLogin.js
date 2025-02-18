@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export default function CustomerLogin({ setToken }) {
     const [email, setEmail] = useState("");
@@ -23,9 +24,16 @@ export default function CustomerLogin({ setToken }) {
             const res = await axios.post(`${apiUrl}/api/customers/login`, { email, orderNumber });
 
             if (res.data.token) {
-                setToken(res.data.token);
                 localStorage.setItem("token", res.data.token);
-                navigate("/dashboard");
+                const expirationTime = Date.now() + 60 * 60 * 1000;
+                localStorage.setItem("tokenExpiry", expirationTime.toString());
+    
+                const decoded = jwtDecode(res.data.token);
+                setTimeout(() => {
+                    navigate(decoded.role === "customer" ? "/dashboard" : "/");
+                }, 500);
+
+                setToken(res.data.token);
             } else {
                 setErrorMessage("Login failed. Please check your email or order number.");
             }

@@ -86,7 +86,7 @@ export default function Landing({selectedCategory}) {
             <input
                 type="text"
                 className="search-bar"
-                placeholder="🔍 Search by Game Name, Region, or Genre..."
+                placeholder={`🔍 Search by Name, Region, or Genre in ${selectedCategory} Category`}
                 value={searchQuery}
                 onChange={handleSearch}
             />
