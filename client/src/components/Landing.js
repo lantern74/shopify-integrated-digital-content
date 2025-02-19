@@ -35,7 +35,7 @@ export default function Landing({ selectedCategory, setSelectedCategory, token }
                     : [],
                 fileDownloadUrl: game.fileUrl
                     ? `${apiUrl}/api/files/download/${game.fileUrl}`
-                    : "#",
+                    : game.downloadLink,
             }));
 
             setGames(gamesWithImages);

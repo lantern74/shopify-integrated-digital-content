@@ -34,7 +34,7 @@ export default function CustomerPreview({ token }) {
                     : [],
                 fileDownloadUrl: gameData.fileUrl
                     ? `${apiUrl}/api/files/download/${gameData.fileUrl}`
-                    : "#",
+                    : gameData.downloadLink,
             });
 
             setLoading(false);

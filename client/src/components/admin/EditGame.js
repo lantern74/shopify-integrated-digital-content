@@ -12,6 +12,7 @@ export default function EditGame({ token }) {
         genre: "",
         description: "",
         category: "",
+        downloadLink: "",
     });
 
     const [file, setFile] = useState(null);
@@ -41,9 +42,10 @@ export default function EditGame({ token }) {
                 genre: game.genre,
                 description: game.description,
                 category: game.category,
+                downloadLink: game.downloadLink,
             });
 
-            setExistingFileUrl(game.fileUrl ? `${apiUrl}/api/files/download/${game.fileUrl}` : "");
+            setExistingFileUrl(game.fileUrl ? `${apiUrl}/api/files/download/${game.fileUrl}` : game.downloadLink);
             setExistingGamePictureUrl(game.gamePicture ? `${apiUrl}/api/files/image/${game.gamePicture}` : "");
             setExistingGameplayPictureUrls(game.gameplayPictures ? game.gameplayPictures.map(pictureId => ({
                 id: pictureId,
@@ -110,6 +112,7 @@ export default function EditGame({ token }) {
         formData.append("genre", gameDetails.genre);
         formData.append("description", gameDetails.description);
         formData.append("category", gameDetails.category);
+        formData.append("downloadLink", gameDetails.downloadLink);
 
         if (file) formData.append("file", file);
         if (gamePicture) formData.append("gamePicture", gamePicture);
@@ -173,6 +176,11 @@ export default function EditGame({ token }) {
                         </div>
                     )}
                     <input type="file" onChange={handleFileChange} />
+                </div>
+
+                <div className="edit-game-input-group">
+                    <label>Upload Download Link</label>
+                    <input type="text" name="downloadLink" value={gameDetails.downloadLink} onChange={handleChange} />
                 </div>
 
                 {/* Game Picture Upload */}

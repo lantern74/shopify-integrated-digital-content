@@ -34,8 +34,9 @@ export default function GamePreview({ token }) {
                     : [],
                 fileDownloadUrl: gameData.fileUrl
                     ? `${apiUrl}/api/files/download/${gameData.fileUrl}`
-                    : "#",
+                    : gameData.downloadLink,
             });
+            console.log(gameData, 'gamedate')
 
             setLoading(false);
         } catch (error) {

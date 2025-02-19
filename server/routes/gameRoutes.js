@@ -32,15 +32,17 @@ const upload = multer({
 
 // ✅ Game Model (Store Only ObjectId of Files)
 const Game = mongoose.model("Game", new mongoose.Schema({
-    name: String,
+    name: { type: String, required: true },
     region: String,
     genre: String,
     description: String,
     category: { type: String, required: true },
+    downloadLink: { type: String, default: "" }, // ✅ Ensure it's a String
     fileUrl: mongoose.Schema.Types.ObjectId,
     gamePicture: mongoose.Schema.Types.ObjectId,
-    gameplayPictures: [mongoose.Schema.Types.ObjectId], // ✅ Store multiple gameplay pictures
+    gameplayPictures: [mongoose.Schema.Types.ObjectId],
 }));
+
 
 // ✅ Function to Upload File to GridFS
 const uploadFileToGridFS = (filePath, fileName, mimeType) => {
@@ -60,47 +62,50 @@ const uploadFileToGridFS = (filePath, fileName, mimeType) => {
 router.post("/add", upload.fields([
     { name: "file" },
     { name: "gamePicture" },
-    { name: "gameplayPictures", maxCount: 30 } // ✅ Allow up to 10 gameplay pictures
+    { name: "gameplayPictures", maxCount: 30 }
 ]), async (req, res) => {
     try {
-        if (!req.body.name || !req.files["file"] || !req.files["gamePicture"] || !req.body.category) {
-            return res.status(400).json({ message: "Missing required fields" });
+        if (!req.body.name || !req.body.category || !req.files["gamePicture"]) {
+            return res.status(400).json({ message: "❌ Missing required fields!" });
         }
 
         console.log("📌 Files Uploaded:", req.files);
 
-        // ✅ Upload files to GridFS
-        const fileId = await uploadFileToGridFS(req.files["file"][0].path, req.files["file"][0].originalname, req.files["file"][0].mimetype);
+        // ✅ Upload files to GridFS only if they exist
+        const fileId = req.files["file"] ? await uploadFileToGridFS(req.files["file"][0].path, req.files["file"][0].originalname, req.files["file"][0].mimetype) : null;
         const gamePictureId = await uploadFileToGridFS(req.files["gamePicture"][0].path, req.files["gamePicture"][0].originalname, req.files["gamePicture"][0].mimetype);
 
-        // ✅ Upload multiple gameplay pictures asynchronously
         const gameplayPictureIds = req.files["gameplayPictures"]
             ? await Promise.all(req.files["gameplayPictures"].map(file =>
                 uploadFileToGridFS(file.path, file.originalname, file.mimetype)
             ))
             : [];
 
-        // ✅ Save Game Data in MongoDB
+        // ✅ Assign `downloadLink` correctly
+        const downloadLink = req.body.downloadLink ? req.body.downloadLink.trim() : "";
+
         const newGame = new Game({
             name: req.body.name,
             region: req.body.region,
             genre: req.body.genre,
             description: req.body.description,
             category: req.body.category,
+            downloadLink: downloadLink, // ✅ Ensure correct handling
             fileUrl: fileId,
             gamePicture: gamePictureId,
-            gameplayPictures: gameplayPictureIds, // ✅ Store array of ObjectIds
+            gameplayPictures: gameplayPictureIds,
         });
 
         await newGame.save();
         console.log("✅ Game Saved Successfully:", newGame);
-        res.json({ message: "Game added successfully!", game: newGame });
+        res.json({ message: "✅ Game added successfully!", game: newGame });
 
     } catch (error) {
         console.error("❌ Error Adding Game:", error);
-        res.status(500).json({ message: "Error adding game." });
+        res.status(500).json({ message: "❌ Error adding game.", error: error.message });
     }
 });
+
 
 // ✅ Fetch all games (List Games)
 router.get("/", async (req, res) => {
@@ -219,6 +224,7 @@ router.put("/update/:id", upload.fields([{ name: "file" }, { name: "gamePicture"
         game.genre = req.body.genre || game.genre;
         game.description = req.body.description || game.description;
         game.category = req.body.category || game.category;
+        game.downloadLink = req.body.downloadLink || game.downloadLink;
 
         await game.save();
 

@@ -9,7 +9,8 @@ export default function AddGame({ token }) {
         region: "",
         genre: "",
         description: "",
-        category: ""
+        category: "",
+        downloadLink: "",
     });
 
     const [file, setFile] = useState(null);
@@ -20,7 +21,10 @@ export default function AddGame({ token }) {
     const fileInputRef = useRef(null);
 
     const handleChange = (e) => {
-        setGameDetails({ ...gameDetails, [e.target.name]: e.target.value });
+        setGameDetails((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }));
     };
 
     const handleFileChange = (e) => setFile(e.target.files[0]);
@@ -36,29 +40,31 @@ export default function AddGame({ token }) {
     }
 
     const handleSubmit = async () => {
-        if (!gameDetails.name || !gameDetails.category || !file || !gamePicture) {
-            alert("Please fill in all fields and upload files.");
+        if (!gameDetails.name || !gameDetails.category || !gamePicture) {
+            alert("❌ Please fill in all required fields.");
             return;
         }
-
+    
         const formData = new FormData();
         formData.append("name", gameDetails.name);
         formData.append("region", gameDetails.region);
         formData.append("genre", gameDetails.genre);
         formData.append("description", gameDetails.description);
         formData.append("category", gameDetails.category);
-        formData.append("file", file);
+    
+        // ✅ Only append `downloadLink` if it's provided
+        if (gameDetails.downloadLink.trim() !== "") {
+            formData.append("downloadLink", gameDetails.downloadLink);
+        }
+    
+        if (file) formData.append("file", file);
         formData.append("gamePicture", gamePicture);
-
-        // ✅ Append multiple gameplay images
-        gameplayPictures.forEach((picture, index) => {
-            formData.append("gameplayPictures", picture);
-        });
-
+        gameplayPictures.forEach((picture) => formData.append("gameplayPictures", picture));
+    
         try {
             setUploadProgress(0);
             setIsUploading(true);
-
+    
             console.log("📌 Sending Game Add Request...");
             const apiUrl = process.env.REACT_APP_API_URL;
             await axios.post(`${apiUrl}/api/games/add`, formData, {
@@ -68,10 +74,9 @@ export default function AddGame({ token }) {
                     setUploadProgress(percentCompleted);
                 }
             });
-
-            alert("Game added successfully!");
+    
+            alert("✅ Game added successfully!");
             navigate("/admin/dashboard");
-            window.location.reload();
         } catch (error) {
             console.error("❌ Error Adding Game:", error.response ? error.response.data : error.message);
             alert("Failed to add game. Check console for details.");
@@ -79,6 +84,7 @@ export default function AddGame({ token }) {
             setIsUploading(false);
         }
     };
+    
 
     return (
         <div className="dark-container">
@@ -116,6 +122,10 @@ export default function AddGame({ token }) {
                 <div className="input-group">
                     <label>Upload File * (Max 5GB)</label>
                     <input type="file" ref={fileInputRef} onChange={handleFileChange} />
+                </div>
+                <div className="input-group">
+                    <label>Upload Download Link</label>
+                    <input type="text" name="downloadLink" onChange={handleChange} />
                 </div>
                 <div className="input-group">
                     <label>Upload Initial Picture *</label>

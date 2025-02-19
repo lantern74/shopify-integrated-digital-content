@@ -43,7 +43,7 @@ export default function Dashboard({ token, selectedCategory, setSelectedCategory
                     : [],
                 fileDownloadUrl: game.fileUrl
                     ? `${apiUrl}/api/files/download/${game.fileUrl}`
-                    : "#",
+                    : game.downloadLink,
             }));
 
             setGames(gamesWithImages);

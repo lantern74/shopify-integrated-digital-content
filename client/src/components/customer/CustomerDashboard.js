@@ -42,7 +42,7 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
                     : [],
                 fileDownloadUrl: game.fileUrl
                     ? `${apiUrl}/api/files/download/${game.fileUrl}`
-                    : "#",
+                    : game.downloadLink,
             }));
 
             setGames(gamesWithImages);
