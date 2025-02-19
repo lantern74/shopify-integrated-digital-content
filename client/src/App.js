@@ -103,7 +103,7 @@ function App() {
                         <Route path="/preview/:id" element={token && role === "customer" ? <CustomerPreview token={token} /> : <CustomerDashboard setToken={setToken} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory}/>} />
 
                         {/* Default Fallback */}
-                        {/* <Route path="*" element={<Navigate to="/" />} /> */}
+                        <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
                     <Footer />
                 </div>
