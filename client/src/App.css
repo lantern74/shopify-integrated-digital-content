@@ -47,7 +47,7 @@
 }
 
 .landing {
-  background: radial-gradient(ellipse at bottom, #1b2735 50%, #090a0f 100%);
+  background: #fff;
   min-height: 100vh;
   overflow-y: hidden;
   color: white;
@@ -55,7 +55,7 @@
 .signBtn {
   background-color: transparent;
   border: none;
-  color: white;
+  color: #000;
   font-size: 18px;
   margin: 0 20px;
   text-decoration: none;
@@ -66,10 +66,10 @@
 /* Hover effect for login button */
 .signBtn:hover {
   cursor: pointer;
-  border-bottom: 3px solid white;
+  border-bottom: 3px solid #dd1d1d;
 }
 .signBtn.active {
-  border-bottom: 3px solid white;
+  border-bottom: 3px solid #dd1d1d;
 }
 
 .hamburger {
@@ -101,7 +101,7 @@
 
 /* Login box styling */
 .login-box {
-  background-color: #1e1e1e;
+  border: 1px solid #000;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
@@ -114,34 +114,40 @@
 .login-box h2 {
   margin-bottom: 20px;
   font-size: 24px;
-  color: #ffffff;
+  color: #000;
+}
+.login-box p {
+  margin-bottom: 20px;
+  color: #000;
 }
 
 /* Input field styling */
 .input-group {
   margin-bottom: 15px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
 }
 
 .input-group label {
   display: block;
   font-size: 14px;
   margin-bottom: 5px;
-  color: #b0b0b0;
+  color: #000;
 }
 
-.input-group input {
+.input-group input, .input-group textarea {
   width: 100%;
   padding: 10px;
-  background-color: #252525;
-  border: 1px solid #333;
+  border: 1px solid #000;
   border-radius: 5px;
-  color: white;
+  color: #000;
   font-size: 16px;
   outline: none;
 }
 
-.input-group input:focus {
+.input-group input:focus,
+.input-group textarea:focus {
   border-color: #007bff;
   box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
 }
@@ -151,7 +157,7 @@
   margin-top: 10px;
   width: 100%;
   padding: 10px;
-  background-color: #333;
+  background-color: #dd1d1d;
   border: none;
   border-radius: 5px;
   color: white;
@@ -162,7 +168,6 @@
 }
 
 .login-button:hover {
-  background-color: #555;
   transform: scale(1.03);
 }
 
@@ -188,27 +193,32 @@
 .title {
   text-align: center;
   font-size: 28px;
+  color: #000;
 }
 .game-add-btn {
-  background-color: #222;
+  background-color: #ff4d4d;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 10px;
   color: white;
   text-decoration: none;
 }
 .game-add-btn:hover {
-  background-color: #333;
+  background-color: #dd1d1d;
 }
 /* 🔍 Search Bar */
 .search-bar {
   width: 100%;
-  padding: 10px;
+  padding: 10px 30px;
   margin-bottom: 20px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  background-color: #222;
+  border: none;
+  border-radius: 30px;
+  background-color: #dd1d1d;
   color: white;
   font-size: 16px;
+}
+
+.search-bar::placeholder {
+  color: #ccc;
 }
 
 .editGameGrid {
@@ -269,7 +279,7 @@
 
 /* 🃏 Game Card */
 .game-card {
-  background-color: #1e1e1e;
+  background-color: #000;
   /* padding: 15px; */
   text-align: center;
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
@@ -332,18 +342,18 @@ a {
 /* preview page */
 .preview-container {
     max-width: 800px;
-    margin: 40px auto;
+    margin: 20px auto;
     padding: 20px;
-    background-color: #1e1e1e;
-    color: white;
+    border: 2px solid #000;
+    color: #000;
     border-radius: 12px;
     box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.1);
-    margin-bottom: 80px;
+    margin-bottom: 100px;
 }
 
 /* 🔙 Back Button */
 .back-preview {
-    background-color: #333;
+    background-color: #dd1d1d;
     color: white;
     padding: 10px 15px;
     border-radius: 8px;
@@ -354,7 +364,7 @@ a {
     transition: 0.3s ease-in-out;
 }
 .back-preview:hover {
-    background-color: #555;
+  transform: scale(1.05);
 }
 .preview-content {
   text-align: center;
@@ -383,18 +393,18 @@ a {
 }
 .detail-box {
     padding: 10px;
-    background-color: #2a2a2a;
+    border: 1px solid #000;
     border-radius: 5px;
     margin-bottom: 10px;
 }
 .detail-label {
     font-weight: bold;
-    color: #ddd;
+    color: #000;
     font-size: 20px;
 }
 .detail-value {
   padding-left: 25px;
-    color: #eee;
+    color: #000;
 }
 
 /* 📸 Screenshot Gallery */
@@ -422,6 +432,7 @@ a {
   object-fit: cover;
   border-radius: 5px;
   transition: 0.3s;
+  border: 1px solid #dd1d1d;
 }
 
 .screenshot-img:hover {
@@ -437,7 +448,7 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #4CAF50;
+    background-color: #dd1d1d;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -450,8 +461,7 @@ a {
     margin-right: 8px;
 }
 .download-btn:hover {
-    background-color: #3e8e41;
-    transform: scale(1.05);
+    transform: scale(1.03);
 }
 
 /* Add Game */
@@ -467,45 +477,18 @@ a {
   text-align: center;
   font-size: 24px;
   margin-bottom: 20px;
+  color: #000;
 }
 
 /* Form Card */
 .dark-card {
-  background-color: #1e1e1e;
   padding: 20px;
+  border: 2px solid #000;
   border-radius: 10px;
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
 }
 
-/* Input Group */
-.input-group {
-  margin-bottom: 15px;
-}
 
-.input-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #b0b0b0;
-}
-
-.input-group input,
-.input-group textarea {
-  width: 100%;
-  padding: 10px;
-  background-color: #252525;
-  border: 1px solid #333;
-  border-radius: 5px;
-  color: white;
-  font-size: 16px;
-  outline: none;
-}
-
-.input-group input:focus,
-.input-group textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
-}
 .custom-select {
   position: relative;
   width: 100%;
@@ -516,9 +499,8 @@ a {
   width: 100%;
   padding: 12px;
   font-size: 16px;
-  background-color: #222; /* Dark background */
-  color: white; /* Text color */
-  border: 2px solid #444; /* Border color */
+  color: #000; /* Text color */
+  border: 2px solid #000; /* Border color */
   appearance: none; /* Remove default dropdown arrow */
   cursor: pointer;
   transition: all 0.3s ease;
@@ -535,7 +517,7 @@ a {
 .custom-select::after {
   content: "▼";
   font-size: 14px;
-  color: white;
+  color: #000;
   position: absolute;
   right: 15px;
   top: 50%;
@@ -545,8 +527,7 @@ a {
 
 /* Style the options */
 .custom-select select option {
-  background-color: #333;
-  color: white;
+  color: #000;
   font-size: 16px;
 }
 
@@ -613,97 +594,6 @@ a {
 
 .submit-btn:hover {
   background-color: #218838;
-}
-
-/* Edit Game */
-.edit-game-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  margin-bottom: 80px;
-}
-
-/* 🎮 Title */
-.edit-game-title {
-  text-align: center;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-/* 🗂️ Form Card */
-.edit-game-card {
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
-}
-
-/* 🎯 Input Group */
-.edit-game-input-group {
-  margin-bottom: 15px;
-}
-
-.edit-game-input-group label {
-  display: block;
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #b0b0b0;
-}
-
-.edit-game-input-group input,
-.edit-game-input-group textarea {
-  width: 100%;
-  padding: 10px;
-  background-color: #252525;
-  border: 1px solid #333;
-  color: white;
-  font-size: 16px;
-  outline: none;
-}
-
-.edit-game-input-group input:focus,
-.edit-game-input-group textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
-}
-.edit-game-file-section {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.edit-game-file-preview {
-  width: 150px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.edit-game-delete-btn {
-  background-color: transparent;
-  border: none;
-  color: red;
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.edit-game-delete-btn:hover {
-  color: #ff4d4d;
-}
-
-/* 🎮 Gameplay Images */
-.edit-game-gameplay-images {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.edit-game-gameplay-img {
-  width: 80px;
-  height: 80px;
-  border-radius: 5px;
-  object-fit: cover;
-  position: relative;
 }
 
 /* ❌ Delete Button */
@@ -801,9 +691,18 @@ a {
 
 
 .footer {
-  background-color: black;
+  background-color: #dd1d1d;
   color: white;
-  padding: 20px 0;
+  padding: 15px 0;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+.fixFooter {
+  background-color: #dd1d1d;
+  color: white;
+  padding: 15px 0;
   text-align: center;
   position: fixed;
   bottom: 0;
@@ -817,12 +716,26 @@ a {
 .footer-text {
   margin-bottom: 0;
   font-size: 14px;
+  line-height: 16px;
 }
 
 /* ❌ Error Message */
 .error-message {
   background-color: #f8d7da;
   color: #58151c;
+  padding: 10px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 8px;
+  margin:  0 auto 20px auto;
+  width: 100%;
+  max-width: 400px;
+  animation: fadeIn 0.3s ease-in-out, fadeOut 0.3s ease-in-out 3s forwards;
+}
+.errorMessage {
+  background-color: #000;
+  color: #dd1d1d;
   padding: 10px;
   text-align: center;
   font-size: 16px;
@@ -893,7 +806,7 @@ a {
   .dashboard-container {
     max-width: 100vw !important;
     padding: 10px 30px !important;
-    margin-bottom: 80px !important;
+    margin-bottom: 20px !important;
   }
   .game-grid {
     gap: 20px !important;
@@ -918,14 +831,14 @@ a {
   .categoryBtn {
     background-color: transparent;
     border: none;
-    color: white;
+    color: #000;
     font-size: 14px;
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s ease, transform 0.2s ease;
   }
   .categoryBtn.active {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid #dd1d1d;
   }
   .close-btn {
     position: absolute;
@@ -944,5 +857,21 @@ a {
   .admin-header {
     display: block !important;
     margin-bottom: 20px !important;
+  }
+  .footer {
+    position: relative;
+  }
+  .preview-container {
+    margin: 20px 0;
+    margin-top: 0;
+    border: none;
+    padding-top: 0;
+  }
+  .dark-card {
+    border: none;
+    padding: 0;
+  }
+  .dark-container {
+    margin-bottom: 0;
   }
 }

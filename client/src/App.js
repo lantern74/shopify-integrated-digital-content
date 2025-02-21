@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom"; // Keep separate
 import Navbar from "./components/Navbar"; 
 import Login from "./components/admin/Login";
@@ -17,10 +17,14 @@ import Footer from "./components/Footer";
 
 function App() {
     const navigate = useNavigate();
+    const location = useLocation();
     const [token, setToken] = useState(localStorage.getItem("token") || "");
     const [role, setRole] = useState("");
     const [loading, setLoading] = useState(sessionStorage.getItem("hasLoaded") ? false : true);
     const [selectedCategory, setSelectedCategory] = useState("All");
+
+    const isMobile = window.innerWidth <= 768; // ✅ Check if the screen is mobile
+    const isLoginPage = location.pathname === "/login" || location.pathname === "/admin/login"; // ✅ Check if it's a login page
 
     useEffect(() => {
         if (token) {
@@ -105,7 +109,7 @@ function App() {
                         {/* Default Fallback */}
                         <Route path="*" element={<Navigate to="/" />} />
                     </Routes>
-                    <Footer />
+                    <Footer isFixed={isLoginPage && isMobile} />
                 </div>
             )}
         </div>

@@ -104,7 +104,6 @@ export default function Landing({ selectedCategory, setSelectedCategory, token }
 
     return (
         <div className="dashboard-container">
-            <h2 className="text-center title">Welcome To Visit Our Digital Content Libraries</h2>
 
             {/* 🔍 Search Bar */}
             <input
@@ -127,7 +126,7 @@ export default function Landing({ selectedCategory, setSelectedCategory, token }
             )}
 
             {/* ❌ Error Message */}
-            {errorMessage && <div className="error-message text-center">{errorMessage}</div>}
+            {errorMessage && <div className="errorMessage">{errorMessage}</div>}
 
             <div className="game-grid">
                 {filteredGames.length === 0 ? (

@@ -133,11 +133,11 @@ export default function EditGame({ token }) {
     };
 
     return (
-        <div className="edit-game-container">
-            <h2 className="edit-game-title">Edit Content</h2>
+        <div className="dark-container">
+            <h2 className="dark-title">Edit Content</h2>
 
-            <div className="edit-game-card">
-                <div className="edit-game-input-group">
+            <div className="dark-card">
+                <div className="input-group">
                     <label>Category *</label>
                     <div className="custom-select">
                         <select name="category" value={gameDetails.category} onChange={handleChange} required>
@@ -149,25 +149,25 @@ export default function EditGame({ token }) {
                         </select>
                     </div>
                 </div>
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>Name *</label>
                     <input type="text" name="name" value={gameDetails.name} onChange={handleChange} />
                 </div>
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>Region</label>
                     <input type="text" name="region" value={gameDetails.region} onChange={handleChange} />
                 </div>
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>Genre</label>
                     <input type="text" name="genre" value={gameDetails.genre} onChange={handleChange} />
                 </div>
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>Description</label>
                     <textarea name="description" rows="3" value={gameDetails.description} onChange={handleChange}></textarea>
                 </div>
 
                 {/* Game File Upload */}
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>File * (Max 5GB)</label>
                     {existingFileUrl && (
                         <div className="d-flex align-items-center" style={{marginBottom: '5px'}}>
@@ -178,13 +178,13 @@ export default function EditGame({ token }) {
                     <input type="file" onChange={handleFileChange} />
                 </div>
 
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>Upload Download Link</label>
                     <input type="text" name="downloadLink" value={gameDetails.downloadLink} onChange={handleChange} />
                 </div>
 
                 {/* Game Picture Upload */}
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>Initial Picture *</label>
                     {existingGamePictureUrl && (
                         <div className="position-relative" style={{marginBottom: '5px'}}>
@@ -196,7 +196,7 @@ export default function EditGame({ token }) {
                 </div>
 
                 {/* Gameplay Pictures Upload */}
-                <div className="edit-game-input-group">
+                <div className="input-group">
                     <label>Play Pictures (Multiple)</label>
                     <div className="editGameGrid">
                         {existingGameplayPictureUrls.map((pic) => (

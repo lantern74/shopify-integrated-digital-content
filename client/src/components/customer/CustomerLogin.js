@@ -48,7 +48,8 @@ export default function CustomerLogin({ setToken }) {
     return (
         <div className="login-container">
             <div className="login-box">
-                <h2>Customer Login</h2>
+                <h2>Customer Access</h2>
+                <p>Enter your email and order number to unlock full access</p>
 
                 {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                 <div className="input-group">
