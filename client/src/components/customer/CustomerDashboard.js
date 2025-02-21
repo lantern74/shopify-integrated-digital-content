@@ -116,7 +116,6 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
 
     return (
         <div className="dashboard-container">
-            <h2 className="text-center title">Digital Content Libraries</h2>
 
             {/* 🔍 Search Bar */}
             <input
