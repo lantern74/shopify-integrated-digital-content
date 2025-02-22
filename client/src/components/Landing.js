@@ -95,7 +95,12 @@ export default function Landing({ selectedCategory, setSelectedCategory, token }
     // ✅ Function to handle game card click
     const handleGameClick = () => {
         if (!token) {
-            setErrorMessage("You have to login now!");
+            setErrorMessage(
+                <>
+                    You need to log in to access the full game library. <br />
+                    Only customers with a valid purchase can unlock unlimited downloads.
+                </>
+            );
             setTimeout(() => setErrorMessage(""), 3000); // Clear message after 3 seconds
         } else {
             console.log("✅ Navigating to game details...");
