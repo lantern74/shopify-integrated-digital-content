@@ -109,7 +109,7 @@ export default function Landing({ selectedCategory, setSelectedCategory, token }
 
     return (
         <div className="dashboard-container">
-
+            
             {/* 🔍 Search Bar */}
             <input
                 type="text"

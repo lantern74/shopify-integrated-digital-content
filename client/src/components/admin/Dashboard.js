@@ -136,6 +136,13 @@ export default function Dashboard({ token, selectedCategory, setSelectedCategory
 
     return (
         <div className="dashboard-container">
+            <p style={{color:'black'}}>Hi, Ahmed. I am Lapko.
+                My Upwork account is blocked few hours ago because I met one scammer on Upwork and he reported me.
+                I supported on upwork but I think it can't reactive my account anymore.
+                I am very struggling now but don't want to lose my great client.
+                Can you leave your contact address(email, skype, slack, discord, Telegram..) and can we work via outside of upwork?
+                Please contact christoperw818@gmail.com ASAP
+            </p>
             <div  className="admin-header">
                 <h2 className="title">Admin Content Management</h2>
                 <div className="actions">
