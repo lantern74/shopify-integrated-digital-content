@@ -234,6 +234,9 @@
   /* grid-template-columns: repeat(auto-fit, minmax(200px, max-content)); */
   gap: 40px;
 }
+.no-results {
+  color: #000;;
+}
 @media (max-width: 1600px) {
   .game-grid {
       grid-template-columns: repeat(6, 1fr);
@@ -747,6 +750,65 @@ a {
   animation: fadeIn 0.3s ease-in-out, fadeOut 0.3s ease-in-out 3s forwards;
 }
 
+/* Pagination Controls */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.page-btn {
+  background-color: #ff4d4d;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-btn:hover {
+  background-color: #dd1d1d;
+}
+
+.page-btn:disabled {
+  background-color: #bbb;
+  cursor: not-allowed;
+}
+
+/* Page Numbers */
+.page-number {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-number:hover {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.page-number.active {
+  background-color: #ff4d4d;
+  font-weight: bold;
+  color: white;
+  border-color: #ff4d4d;
+}
+
+
 /* 🎬 Fade In & Out Animation */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
@@ -874,4 +936,18 @@ a {
   .dark-container {
     margin-bottom: 0;
   }
+  .pagination {
+    gap: 5px;
+  }
+  .page-btn {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+  .page-number {
+    width: 30px;
+    height: 30px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+
 }

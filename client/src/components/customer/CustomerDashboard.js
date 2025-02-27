@@ -9,6 +9,24 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
     const [filteredGames, setFilteredGames] = useState([]); // For filtering in the frontend
     const [searchQuery, setSearchQuery] = useState("");
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [gamesPerRow, setGamesPerRow] = useState(7);
+
+    useEffect(() => {
+        const updateGamesPerRow = () => {
+            const width = window.innerWidth;
+            if (width > 1600) setGamesPerRow(7);
+            else if (width > 1500) setGamesPerRow(6);
+            else if (width > 1250) setGamesPerRow(5);
+            else if (width > 1000) setGamesPerRow(4);
+            else if (width > 750) setGamesPerRow(3);
+            else setGamesPerRow(2);
+        };
+
+        updateGamesPerRow(); // Initial setup
+        window.addEventListener("resize", updateGamesPerRow);
+        return () => window.removeEventListener("resize", updateGamesPerRow);
+    }, []);
 
     // ✅ Update `isMobile` on window resize
     useEffect(() => {
@@ -72,6 +90,7 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
         }
 
         setFilteredGames(filtered);
+        setCurrentPage(1);
     };
 
     const handleDownload = (e, fileUrl) => {
@@ -114,6 +133,35 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
         setSelectedCategory(category);
     };
 
+    const gamesPerPage = gamesPerRow * 4; // Always 4 rows per page
+    const totalPages = Math.ceil(filteredGames.length / gamesPerPage);
+    const paginatedGames = filteredGames.slice((currentPage - 1) * gamesPerPage, currentPage * gamesPerPage);
+    const handlePageChange = (pageNumber) => {
+        setCurrentPage(pageNumber);
+    };
+
+    // ✅ Generate Pagination Numbers with "..."
+    const getPaginationItems = () => {
+        const maxPagesToShow = 5;
+        let pages = [];
+
+        if (totalPages <= maxPagesToShow) {
+            // Show all pages if total pages are small
+            pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+        } else {
+            // Show first, last, current, and nearby pages with "..."
+            pages.push(1);
+            if (currentPage > 3) pages.push("...");
+            let start = Math.max(2, currentPage - 1);
+            let end = Math.min(totalPages - 1, currentPage + 1);
+            for (let i = start; i <= end; i++) pages.push(i);
+            if (currentPage < totalPages - 2) pages.push("...");
+            pages.push(totalPages);
+        }
+
+        return pages;
+    };
+
     return (
         <div className="dashboard-container">
 
@@ -138,10 +186,10 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
             )}
 
             <div className="game-grid">
-                {filteredGames.length === 0 ? (
-                    <p className="no-results">No content found. Try a different search!</p>
+                {paginatedGames.length === 0 ? (
+                    <p className="no-results">No results found. Try a different search!</p>
                 ) : (
-                    filteredGames.map((game) => (
+                    paginatedGames.map((game) => (
                         <div key={game._id} className="game-card">
                             <Link to={`/preview/${game._id}`}>
                                 <img src={game.gamePictureUrl} alt={game.name} className="game-img" />
@@ -152,7 +200,6 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
                                         <div><strong>Region:</strong> {game.region}</div>
                                     </div>
                                 </div>
-
                                 {/* Action Buttons */}
                                 <div className="game-actions">
                                     <button
@@ -167,6 +214,23 @@ export default function CustomerDashboard({ token, selectedCategory, setSelected
                         </div>
                     ))
                 )}
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="pagination">
+                <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1} className="page-btn"><i className="bi bi-arrow-left"></i></button>
+
+                {getPaginationItems().map((page, index) => (
+                    <button
+                        key={index}
+                        className={`page-number ${currentPage === page ? "active" : ""}`}
+                        onClick={() => typeof page === "number" && handlePageChange(page)}
+                        disabled={page === "..."}
+                    >
+                        {page}
+                    </button>
+                ))}
+                <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages} className="page-btn"><i className="bi bi-arrow-right"></i></button>
             </div>
         </div>
     );
